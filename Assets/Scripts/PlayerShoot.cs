@@ -10,6 +10,8 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private GameObject crosshair;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
     [SerializeField] private Transform aimTransform;
+    [SerializeField] private GameObject pfBulletProjectile;
+    [SerializeField] private Transform spawnBulletPosition;
 
     private StarterAssetsInputs _startedAssetsInputs;
     private ThirdPersonController _thirdPersonController;
@@ -29,6 +31,11 @@ public class PlayerShoot : MonoBehaviour
         if (_startedAssetsInputs.aim)
         {
             EnterAimMode(aimPos);
+
+            if (_startedAssetsInputs.shoot)
+            {
+                Shoot(aimPos);
+            }
         }
         else
         {
@@ -62,12 +69,18 @@ public class PlayerShoot : MonoBehaviour
         Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         Ray ray = Camera.main.ScreenPointToRay(screenCenter);
 
-        if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimColliderLayerMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimColliderLayerMask))
         {
             aimTransform.position = hit.point;
             return hit.point;
         }
 
         return ray.GetPoint(1000);
+    }
+
+    private void Shoot(Vector3 aimPos)
+    {
+        Vector3 direction = (aimPos - spawnBulletPosition.position).normalized;
+        Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(direction, Vector3.up));
     }
 }
