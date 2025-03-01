@@ -1,11 +1,15 @@
 using System;
 using StarterAssets;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
-    [SerializeField] private GameObject aimCamera;
+    [SerializeField] private CinemachineCamera aimCamera;
     [SerializeField] private float aimSensitivity, normalSensitivity;
+    [SerializeField] private GameObject crosshair;
+    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
+    [SerializeField] private Transform aimTransform;
 
     private StarterAssetsInputs _startedAssetsInputs;
     private ThirdPersonController _thirdPersonController;
@@ -15,14 +19,16 @@ public class PlayerShoot : MonoBehaviour
         _startedAssetsInputs = GetComponent<StarterAssetsInputs>();
         _thirdPersonController = GetComponent<ThirdPersonController>();
 
-        aimCamera.SetActive(false);
+        aimCamera.Priority = -1;
+        crosshair.SetActive(false);
     }
 
     private void Update()
     {
+        Vector3 aimPos = GetAimPoint();
         if (_startedAssetsInputs.aim)
         {
-            EnterAimMode();
+            EnterAimMode(aimPos);
         }
         else
         {
@@ -30,15 +36,38 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
-    private void EnterAimMode()
+    private void EnterAimMode(Vector3 aimPos)
     {
+        _thirdPersonController.SetRotateOnMove(false);
         _thirdPersonController.SetSensitivity(aimSensitivity);
-        aimCamera.SetActive(true);
+
+        Vector3 aimDirection = new Vector3(aimPos.x, transform.position.y, aimPos.z);
+        transform.forward = Vector3.Lerp(transform.forward, (aimDirection - transform.position).normalized, Time.deltaTime * 20f);
+
+        aimCamera.Priority = 10;
+        crosshair.SetActive(true);
     }
 
     private void ExitAimMode()
     {
+        _thirdPersonController.SetRotateOnMove(true);
         _thirdPersonController.SetSensitivity(normalSensitivity);
-        aimCamera.SetActive(false);
+
+        aimCamera.Priority = -1;
+        crosshair.SetActive(false);
+    }
+
+    private Vector3 GetAimPoint()
+    {
+        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        Ray ray = Camera.main.ScreenPointToRay(screenCenter);
+
+        if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimColliderLayerMask))
+        {
+            aimTransform.position = hit.point;
+            return hit.point;
+        }
+
+        return ray.GetPoint(1000);
     }
 }
