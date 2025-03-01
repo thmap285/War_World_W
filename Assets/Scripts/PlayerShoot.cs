@@ -12,9 +12,11 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private Transform aimTransform;
     [SerializeField] private GameObject pfBulletProjectile;
     [SerializeField] private Transform spawnBulletPosition;
+    [SerializeField] private float fireRate = 0.2f;
 
     private StarterAssetsInputs _startedAssetsInputs;
     private ThirdPersonController _thirdPersonController;
+    private float _nextFireTime;
 
     private void Awake()
     {
@@ -32,8 +34,9 @@ public class PlayerShoot : MonoBehaviour
         {
             EnterAimMode(aimPos);
 
-            if (_startedAssetsInputs.shoot)
+            if (_startedAssetsInputs.shoot && Time.time >= _nextFireTime + fireRate)
             {
+                _nextFireTime = Time.time;
                 Shoot(aimPos);
             }
         }
