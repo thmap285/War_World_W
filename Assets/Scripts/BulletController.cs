@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
+public class BulletProjectile : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
 
