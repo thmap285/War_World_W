@@ -2,9 +2,11 @@ using System;
 using StarterAssets;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class PlayerShoot : MonoBehaviour
 {
+    [SerializeField] private Rig aimRig;
     [SerializeField] private CinemachineCamera aimCamera;
     [SerializeField] private float aimSensitivity, normalSensitivity;
     [SerializeField] private GameObject crosshair;
@@ -16,12 +18,15 @@ public class PlayerShoot : MonoBehaviour
 
     private StarterAssetsInputs _startedAssetsInputs;
     private ThirdPersonController _thirdPersonController;
+    private Animator _animator;
     private float _nextFireTime;
+    private float _aimRigWeight;
 
     private void Awake()
     {
         _startedAssetsInputs = GetComponent<StarterAssetsInputs>();
         _thirdPersonController = GetComponent<ThirdPersonController>();
+        _animator = GetComponent<Animator>();
 
         aimCamera.Priority = -1;
         crosshair.SetActive(false);
@@ -44,27 +49,35 @@ public class PlayerShoot : MonoBehaviour
         {
             ExitAimMode();
         }
+
+        aimRig.weight = Mathf.Lerp(aimRig.weight, _aimRigWeight, Time.deltaTime * 10f);
     }
 
     private void EnterAimMode(Vector3 aimPos)
     {
         _thirdPersonController.SetRotateOnMove(false);
         _thirdPersonController.SetSensitivity(aimSensitivity);
+        _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 1, Time.deltaTime * 10f));
 
         Vector3 aimDirection = new Vector3(aimPos.x, transform.position.y, aimPos.z);
         transform.forward = Vector3.Lerp(transform.forward, (aimDirection - transform.position).normalized, Time.deltaTime * 20f);
 
         aimCamera.Priority = 10;
         crosshair.SetActive(true);
+
+        _aimRigWeight = 1f;
     }
 
     private void ExitAimMode()
     {
         _thirdPersonController.SetRotateOnMove(true);
         _thirdPersonController.SetSensitivity(normalSensitivity);
+        _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 0, Time.deltaTime * 10f));
 
         aimCamera.Priority = -1;
         crosshair.SetActive(false);
+
+        _aimRigWeight = 0f;
     }
 
     private Vector3 GetAimPoint()
