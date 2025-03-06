@@ -12,14 +12,11 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private GameObject crosshair;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
     [SerializeField] private Transform aimTransform;
-    [SerializeField] private GameObject pfBulletProjectile;
-    [SerializeField] private Transform spawnBulletPosition;
-    [SerializeField] private float fireRate = 0.2f;
+    [SerializeField] private Gun gun;
 
     private StarterAssetsInputs _startedAssetsInputs;
     private ThirdPersonController _thirdPersonController;
     private Animator _animator;
-    private float _nextFireTime;
     private float _aimRigWeight;
 
     private void Awake()
@@ -39,10 +36,10 @@ public class PlayerShoot : MonoBehaviour
         {
             EnterAimMode(aimPos);
 
-            if (_startedAssetsInputs.shoot && Time.time >= _nextFireTime + fireRate)
+            // chỉ cho bắn khi đang nhắm
+            if (_startedAssetsInputs.shoot)
             {
-                _nextFireTime = Time.time;
-                Shoot(aimPos);
+                gun.Shoot(aimPos);
             }
         }
         else
@@ -50,6 +47,18 @@ public class PlayerShoot : MonoBehaviour
             ExitAimMode();
         }
 
+        if (_startedAssetsInputs.reload)
+        {
+            gun.Reload();
+            _startedAssetsInputs.reload = false;
+        }
+
+        if (!_startedAssetsInputs.shoot || !_startedAssetsInputs.aim)
+            {
+                gun.StopShooting();
+            }
+
+        
         aimRig.weight = Mathf.Lerp(aimRig.weight, _aimRigWeight, Time.deltaTime * 10f);
     }
 
@@ -91,12 +100,6 @@ public class PlayerShoot : MonoBehaviour
             return hit.point;
         }
 
-        return ray.GetPoint(1000);
-    }
-
-    private void Shoot(Vector3 aimPos)
-    {
-        Vector3 direction = (aimPos - spawnBulletPosition.position).normalized;
-        Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(direction, Vector3.up));
+        return ray.GetPoint(10000f);
     }
 }
