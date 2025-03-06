@@ -2,26 +2,28 @@ using System;
 using StarterAssets;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class PlayerShoot : MonoBehaviour
 {
+    [SerializeField] private Rig aimRig;
     [SerializeField] private CinemachineCamera aimCamera;
     [SerializeField] private float aimSensitivity, normalSensitivity;
     [SerializeField] private GameObject crosshair;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
     [SerializeField] private Transform aimTransform;
-    [SerializeField] private GameObject pfBulletProjectile;
-    [SerializeField] private Transform spawnBulletPosition;
-    [SerializeField] private float fireRate = 0.2f;
+    [SerializeField] private Gun gun;
 
     private StarterAssetsInputs _startedAssetsInputs;
     private ThirdPersonController _thirdPersonController;
-    private float _nextFireTime;
+    private Animator _animator;
+    private float _aimRigWeight;
 
     private void Awake()
     {
         _startedAssetsInputs = GetComponent<StarterAssetsInputs>();
         _thirdPersonController = GetComponent<ThirdPersonController>();
+        _animator = GetComponent<Animator>();
 
         aimCamera.Priority = -1;
         crosshair.SetActive(false);
@@ -34,37 +36,57 @@ public class PlayerShoot : MonoBehaviour
         {
             EnterAimMode(aimPos);
 
-            if (_startedAssetsInputs.shoot && Time.time >= _nextFireTime + fireRate)
+            // chỉ cho bắn khi đang nhắm
+            if (_startedAssetsInputs.shoot)
             {
-                _nextFireTime = Time.time;
-                Shoot(aimPos);
+                gun.Shoot(aimPos);
             }
         }
         else
         {
             ExitAimMode();
         }
+
+        if (_startedAssetsInputs.reload)
+        {
+            gun.Reload();
+            _startedAssetsInputs.reload = false;
+        }
+
+        if (!_startedAssetsInputs.shoot || !_startedAssetsInputs.aim)
+            {
+                gun.StopShooting();
+            }
+
+        
+        aimRig.weight = Mathf.Lerp(aimRig.weight, _aimRigWeight, Time.deltaTime * 10f);
     }
 
     private void EnterAimMode(Vector3 aimPos)
     {
         _thirdPersonController.SetRotateOnMove(false);
         _thirdPersonController.SetSensitivity(aimSensitivity);
+        _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 1, Time.deltaTime * 10f));
 
         Vector3 aimDirection = new Vector3(aimPos.x, transform.position.y, aimPos.z);
         transform.forward = Vector3.Lerp(transform.forward, (aimDirection - transform.position).normalized, Time.deltaTime * 20f);
 
         aimCamera.Priority = 10;
         crosshair.SetActive(true);
+
+        _aimRigWeight = 1f;
     }
 
     private void ExitAimMode()
     {
         _thirdPersonController.SetRotateOnMove(true);
         _thirdPersonController.SetSensitivity(normalSensitivity);
+        _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 0, Time.deltaTime * 10f));
 
         aimCamera.Priority = -1;
         crosshair.SetActive(false);
+
+        _aimRigWeight = 0f;
     }
 
     private Vector3 GetAimPoint()
@@ -78,12 +100,6 @@ public class PlayerShoot : MonoBehaviour
             return hit.point;
         }
 
-        return ray.GetPoint(1000);
-    }
-
-    private void Shoot(Vector3 aimPos)
-    {
-        Vector3 direction = (aimPos - spawnBulletPosition.position).normalized;
-        Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(direction, Vector3.up));
+        return ray.GetPoint(10000f);
     }
 }
