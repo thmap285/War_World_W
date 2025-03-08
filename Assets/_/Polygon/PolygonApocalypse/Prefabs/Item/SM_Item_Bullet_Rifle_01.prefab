@@ -105,7 +105,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -150,11 +150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acef89b102afdc046abd0fbacc9645f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 45
+  speed: 100
   damage: 10
   lifeTime: 2
   hitEnemyEffect: {fileID: 1362418652685942, guid: b369efb4abe69e044890b664115fab9e, type: 3}
-  hitWallEffect: {fileID: 100002, guid: 99c73c92ac40473459640b165473206f, type: 3}
+  hitWallEffect: {fileID: 100006, guid: 9e95c7b2183a4f345aaf86846f8f1918, type: 3}
 --- !u!96 &5150892812613142600
 TrailRenderer:
   serializedVersion: 3

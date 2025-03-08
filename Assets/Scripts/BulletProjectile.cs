@@ -24,12 +24,15 @@ public class BulletProjectile : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        // if(other.gameObject.CompareTag("Bullet") || other.gameObject.CompareTag("Player")) return;
+        if(other.gameObject.CompareTag("Bullet") || other.gameObject.CompareTag("Player")) return;
 
-        if(other.gameObject.CompareTag("Enemy"))
+        var zombieHealth = other.gameObject.GetComponent<ZombieHealth>();
+        if(other.gameObject.CompareTag("Zombie"))
         {
+            zombieHealth.TakeDamage(damage);
+            
             var hitEffect = Instantiate(hitEnemyEffect, transform.position, 
                             Camera.main.transform.rotation);
             var hitEffectLifeTime = hitEffect.GetComponent<ParticleSystem>().main.duration;

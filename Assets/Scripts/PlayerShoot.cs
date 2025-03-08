@@ -66,6 +66,7 @@ public class PlayerShoot : MonoBehaviour
     {
         _thirdPersonController.SetRotateOnMove(false);
         _thirdPersonController.SetSensitivity(aimSensitivity);
+        _thirdPersonController.SetSprint(false);
         _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 1, Time.deltaTime * 10f));
 
         Vector3 aimDirection = new Vector3(aimPos.x, transform.position.y, aimPos.z);
@@ -81,6 +82,7 @@ public class PlayerShoot : MonoBehaviour
     {
         _thirdPersonController.SetRotateOnMove(true);
         _thirdPersonController.SetSensitivity(normalSensitivity);
+        _thirdPersonController.SetSprint(true);
         _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 0, Time.deltaTime * 10f));
 
         aimCamera.Priority = -1;
@@ -100,6 +102,6 @@ public class PlayerShoot : MonoBehaviour
             return hit.point;
         }
 
-        return ray.GetPoint(10000f);
+        return ray.GetPoint(1000f);
     }
 }
