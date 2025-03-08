@@ -57,6 +57,11 @@ public class Gun : MonoBehaviour
             _currentAmmo--;
 
             Vector3 direction = (aimPos - bulletSpawnPoint.position).normalized;
+            if (Vector3.Distance(bulletSpawnPoint.position, aimPos) < 1.5f)
+            {
+                direction = bulletSpawnPoint.forward;
+            }
+
             Quaternion spreadRotation = GetSpreadRotation();
             direction = spreadRotation * direction;
 
@@ -90,7 +95,7 @@ public class Gun : MonoBehaviour
     private void ApplyRecoil()
     {
         var randomPosition = new Vector2(Random.Range(-horizontalRecoil, horizontalRecoil), 
-                                         Random.Range(-verticalRecoil, verticalRecoil));
+                                         Random.Range(verticalRecoil * 0.5f, verticalRecoil));
         
         playerCamera.HorizontalAxis.Value -= randomPosition.x;
         playerCamera.VerticalAxis.Value -= randomPosition.y;

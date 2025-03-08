@@ -152,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 45
   damage: 10
-  lifeTime: 5
+  lifeTime: 2
   hitEnemyEffect: {fileID: 1362418652685942, guid: b369efb4abe69e044890b664115fab9e, type: 3}
   hitWallEffect: {fileID: 100002, guid: 99c73c92ac40473459640b165473206f, type: 3}
 --- !u!96 &5150892812613142600
@@ -232,7 +232,7 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 0.9830491, b: 0, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 0.77254903}
+      key1: {r: 1, g: 0.9843138, b: 0.13725491, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
