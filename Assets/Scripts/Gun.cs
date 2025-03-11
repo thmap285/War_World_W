@@ -10,20 +10,17 @@ public class Gun : MonoBehaviour
     [SerializeField] private float fireRate;
     private float _nextFireTime;
 
-
     [Header("Bullet Spread Settings")]
     [SerializeField] private bool addBulletSpread = true;
     [SerializeField] private float spreadAngle = 5f;
 
     [Header("Recoil Settings")]
-    [SerializeField] private float verticalRecoil;
-    [SerializeField] private float horizontalRecoil;
-
+    [SerializeField] private Vector2[] recoilPattern;
+    [SerializeField] private float recoilDuration = 0.1f;
 
     [Header("Bullet Projectile Settings")]
-    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject pfBullet;
     [SerializeField] private Transform bulletSpawnPoint;
-
 
     [Header("Ammo Settings")]
     [SerializeField] private int maxAmmo = 30;
@@ -31,51 +28,56 @@ public class Gun : MonoBehaviour
     private int _currentAmmo;
     private bool _isReloading = false;
 
+    [Header("Audio Settings")]
+    [SerializeField] private AudioClip shotSound;
+    [SerializeField] private AudioClip reloadSound;
+    [SerializeField][Range(0, 1)] private float volume = 0.5f;
 
     [Header("Others")]
-    [SerializeField] private GameObject mulzzeFlashEffect;
+    [SerializeField] private GameObject pfMuzzleFlash;
+    [SerializeField] private Transform tfMuzzleFlash;
     [SerializeField] private CinemachineOrbitalFollow playerCamera;
     [SerializeField] private CinemachineImpulseSource impulseSource;
 
-    private Vector3 _originalPosition;
+    private Coroutine _recoilCoroutine;
 
     private void Start()
     {
         _currentAmmo = maxAmmo;
-        mulzzeFlashEffect.SetActive(false);
     }
 
     public void Shoot(Vector3 aimPos)
     {
-        if (_isReloading) return;
+        // Tự động reload khi đạn hết
         if (_currentAmmo <= 0 && !_isReloading) Reload();
+        if (!CanShoot) return;
 
-        if (Time.time >= _nextFireTime)
+        _nextFireTime = Time.time + fireRate;
+        _currentAmmo--;
+
+        Vector3 direction = (aimPos - bulletSpawnPoint.position).normalized;
+        if (Vector3.Distance(bulletSpawnPoint.position, aimPos) < 1.5f)
         {
-            mulzzeFlashEffect.SetActive(true);
-            _nextFireTime = Time.time + fireRate;
-            _currentAmmo--;
-
-            Vector3 direction = (aimPos - bulletSpawnPoint.position).normalized;
-            if (Vector3.Distance(bulletSpawnPoint.position, aimPos) < 1.5f)
-            {
-                direction = bulletSpawnPoint.forward;
-            }
-
-            Quaternion spreadRotation = GetSpreadRotation();
-            direction = spreadRotation * direction;
-
-            Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(direction));
-
-            ApplyRecoil();
+            direction = bulletSpawnPoint.forward;
         }
+
+        Quaternion spreadRotation = GetSpreadRotation();
+        direction = spreadRotation * direction;
+
+        Instantiate(pfBullet, bulletSpawnPoint.position, Quaternion.LookRotation(direction));
+
+        Instantiate(pfMuzzleFlash, tfMuzzleFlash);
+        impulseSource.GenerateImpulse();
+
+        ApplyRecoil();
+        ApplySound();
     }
 
     public void Reload()
     {
         if (!_isReloading)
         {
-            mulzzeFlashEffect.SetActive(false);
+            // fxMuzzleFlash.SetActive(false);
             StartCoroutine(ReloadRoutine());
         }
     }
@@ -94,12 +96,33 @@ public class Gun : MonoBehaviour
 
     private void ApplyRecoil()
     {
-        var randomPosition = new Vector2(Random.Range(-horizontalRecoil, horizontalRecoil), 
-                                         Random.Range(verticalRecoil * 0.5f, verticalRecoil));
-        
-        playerCamera.HorizontalAxis.Value -= randomPosition.x;
-        playerCamera.VerticalAxis.Value -= randomPosition.y;
-        impulseSource.GenerateImpulse();
+        if (_recoilCoroutine != null)
+            StopCoroutine(_recoilCoroutine);
+
+        _recoilCoroutine = StartCoroutine(RecoilRoutine());
+    }
+
+    private IEnumerator RecoilRoutine()
+    {
+        float stepTime = recoilDuration / recoilPattern.Length; // Thời gian mỗi bước
+        int index = 0;
+
+        while (index < recoilPattern.Length)
+        {
+            playerCamera.HorizontalAxis.Value -= recoilPattern[index].x; // Giật ngang
+            playerCamera.VerticalAxis.Value -= recoilPattern[index].y;   // Giật dọc
+
+            index++;
+            yield return new WaitForSeconds(stepTime);
+        }
+    }
+
+    private void ApplySound()
+    {
+        if (shotSound)
+        {
+            AudioSource.PlayClipAtPoint(shotSound, bulletSpawnPoint.transform.position, volume);
+        }
     }
 
     private Quaternion GetSpreadRotation()
@@ -117,8 +140,7 @@ public class Gun : MonoBehaviour
         return Quaternion.FromToRotation(Vector3.forward, Vector3.forward + randomPoint);
     }
 
-    public void StopShooting()
-    {
-        mulzzeFlashEffect.SetActive(false);
-    }
+    #region Getters and Setters
+    public bool CanShoot => Time.time >= _nextFireTime && !_isReloading && _currentAmmo > 0;
+    #endregion
 }

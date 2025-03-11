@@ -8,6 +8,7 @@ public class PlayerShoot : MonoBehaviour
 {
     [SerializeField] private Rig aimRig;
     [SerializeField] private CinemachineCamera aimCamera;
+    [SerializeField] private CinemachineCamera followCamera;
     [SerializeField] private float aimSensitivity, normalSensitivity;
     [SerializeField] private GameObject crosshair;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
@@ -52,12 +53,6 @@ public class PlayerShoot : MonoBehaviour
             gun.Reload();
             _startedAssetsInputs.reload = false;
         }
-
-        if (!_startedAssetsInputs.shoot || !_startedAssetsInputs.aim)
-            {
-                gun.StopShooting();
-            }
-
         
         aimRig.weight = Mathf.Lerp(aimRig.weight, _aimRigWeight, Time.deltaTime * 10f);
     }
@@ -87,6 +82,11 @@ public class PlayerShoot : MonoBehaviour
 
         aimCamera.Priority = -1;
         crosshair.SetActive(false);
+
+        followCamera.GetComponent<CinemachineOrbitalFollow>().VerticalAxis.Value = 
+        aimCamera.GetComponent<CinemachineOrbitalFollow>().VerticalAxis.Value;
+        followCamera.GetComponent<CinemachineOrbitalFollow>().HorizontalAxis.Value = 
+        aimCamera.GetComponent<CinemachineOrbitalFollow>().HorizontalAxis.Value;
 
         _aimRigWeight = 0f;
     }

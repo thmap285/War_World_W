@@ -41,7 +41,9 @@ public class BulletProjectile : MonoBehaviour
         }
         else if(other.gameObject.CompareTag("Wall"))
         {
-            var hitEffect = Instantiate(hitWallEffect, transform.position, Camera.main.transform.rotation);
+            var wall = other.gameObject;
+            var direction = (wall.transform.position - transform.position).normalized;
+            var hitEffect = Instantiate(hitWallEffect, transform.position, Quaternion.LookRotation(direction, transform.up));
             var hitEffectLifeTime = hitEffect.GetComponent<ParticleSystem>().main.duration;
 
             Destroy(hitEffect, hitEffectLifeTime);

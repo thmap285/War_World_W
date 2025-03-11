@@ -34,14 +34,18 @@ public class ZombieAI : MonoBehaviour
 
         foreach (var collider in _ragdollColliders)
         {
-            if(collider == testCollider) 
+            if (collider == testCollider)
             {
                 testCollider.enabled = false;
                 continue;
             }
             collider.enabled = true;
+            collider.gameObject.layer = LayerMask.NameToLayer("ZombieRagdoll"); // Gán layer
         }
+
+        // Physics.IgnoreLayerCollision(LayerMask.NameToLayer("ZombieRagdoll"), LayerMask.NameToLayer("ZombieRagdoll"), true);
     }
+
 
     public void DisableRagdoll()
     {
