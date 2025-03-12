@@ -33,19 +33,22 @@ public class BulletProjectile : MonoBehaviour
         {
             zombieHealth.TakeDamage(damage);
             
-            var hitEffect = Instantiate(hitEnemyEffect, transform.position, 
+            GameObject hitEffect = Instantiate(hitEnemyEffect, transform.position, 
                             Camera.main.transform.rotation);
-            var hitEffectLifeTime = hitEffect.GetComponent<ParticleSystem>().main.duration;
-            
+
+            float hitEffectLifeTime = hitEffect.GetComponent<ParticleSystem>().main.duration;
             Destroy(hitEffect, hitEffectLifeTime);
         }
         else if(other.gameObject.CompareTag("Wall"))
         {
-            var wall = other.gameObject;
-            var direction = (wall.transform.position - transform.position).normalized;
-            var hitEffect = Instantiate(hitWallEffect, transform.position, Quaternion.LookRotation(direction, transform.up));
-            var hitEffectLifeTime = hitEffect.GetComponent<ParticleSystem>().main.duration;
+            Transform wall = other.gameObject.transform;
+            Vector3 direction = (wall.transform.position - transform.position).normalized;
 
+            GameObject hitEffect = Instantiate(hitWallEffect, transform.position, 
+                    Quaternion.LookRotation(direction, transform.up));
+            hitEffect.transform.SetParent(wall);
+
+            float hitEffectLifeTime = hitEffect.GetComponent<ParticleSystem>().main.duration;
             Destroy(hitEffect, hitEffectLifeTime);
         }
 

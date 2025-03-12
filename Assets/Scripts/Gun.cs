@@ -10,11 +10,16 @@ public class Gun : MonoBehaviour
     [SerializeField] private float fireRate;
     private float _nextFireTime;
 
+    [Header("Ammo Settings")]
+    [SerializeField] private int maxAmmo = 30;
+    [SerializeField] private float reloadTime = 2f;
+
     [Header("Bullet Spread Settings")]
-    [SerializeField] private bool addBulletSpread = true;
+    [SerializeField] private bool addSpread = true;
     [SerializeField] private float spreadAngle = 5f;
 
     [Header("Recoil Settings")]
+    [SerializeField] private bool addRecoil = true;
     [SerializeField] private Vector2[] recoilPattern;
     [SerializeField] private float recoilDuration = 0.1f;
 
@@ -22,9 +27,6 @@ public class Gun : MonoBehaviour
     [SerializeField] private GameObject pfBullet;
     [SerializeField] private Transform bulletSpawnPoint;
 
-    [Header("Ammo Settings")]
-    [SerializeField] private int maxAmmo = 30;
-    [SerializeField] private float reloadTime = 2f;
     private int _currentAmmo;
     private bool _isReloading = false;
 
@@ -43,6 +45,7 @@ public class Gun : MonoBehaviour
 
     private void Start()
     {
+        playerCamera = FindFirstObjectByType<CinemachineOrbitalFollow>();
         _currentAmmo = maxAmmo;
     }
 
@@ -96,6 +99,8 @@ public class Gun : MonoBehaviour
 
     private void ApplyRecoil()
     {
+        if(!addRecoil) return;
+        
         if (_recoilCoroutine != null)
             StopCoroutine(_recoilCoroutine);
 
@@ -104,13 +109,13 @@ public class Gun : MonoBehaviour
 
     private IEnumerator RecoilRoutine()
     {
-        float stepTime = recoilDuration / recoilPattern.Length; // Thời gian mỗi bước
+        float stepTime = recoilDuration / recoilPattern.Length;
         int index = 0;
 
         while (index < recoilPattern.Length)
         {
-            playerCamera.HorizontalAxis.Value -= recoilPattern[index].x; // Giật ngang
-            playerCamera.VerticalAxis.Value -= recoilPattern[index].y;   // Giật dọc
+            playerCamera.HorizontalAxis.Value -= recoilPattern[index].x;
+            playerCamera.VerticalAxis.Value -= recoilPattern[index].y;
 
             index++;
             yield return new WaitForSeconds(stepTime);
@@ -127,7 +132,7 @@ public class Gun : MonoBehaviour
 
     private Quaternion GetSpreadRotation()
     {
-        if (!addBulletSpread || spreadAngle <= 0f)
+        if (!addSpread || spreadAngle <= 0f)
             return Quaternion.identity;
 
         // Lấy một điểm ngẫu nhiên trên mặt cầu đơn vị
@@ -142,5 +147,6 @@ public class Gun : MonoBehaviour
 
     #region Getters and Setters
     public bool CanShoot => Time.time >= _nextFireTime && !_isReloading && _currentAmmo > 0;
+    public string Name => gunName;
     #endregion
 }

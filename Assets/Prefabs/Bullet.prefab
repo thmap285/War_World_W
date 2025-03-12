@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 4158306715831622102}
   - component: {fileID: 6178484368874625125}
   - component: {fileID: -1348832385367043339}
+  - component: {fileID: 3130337974177892401}
   - component: {fileID: 5150892812613142600}
   m_Layer: 0
-  m_Name: Rifle_Bullet
+  m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,6 +156,23 @@ MonoBehaviour:
   lifeTime: 2
   hitEnemyEffect: {fileID: 1362418652685942, guid: b369efb4abe69e044890b664115fab9e, type: 3}
   hitWallEffect: {fileID: 100006, guid: 9e95c7b2183a4f345aaf86846f8f1918, type: 3}
+--- !u!114 &3130337974177892401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551417492572840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 909d917d73a63f940ac158d02e936645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushLayers:
+    serializedVersion: 2
+    m_Bits: 704
+  canPush: 1
+  strength: 0.5
 --- !u!96 &5150892812613142600
 TrailRenderer:
   serializedVersion: 3
