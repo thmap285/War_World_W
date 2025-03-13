@@ -66,7 +66,7 @@ public class PlayerReload : MonoBehaviour
         magazine.AddComponent<BoxCollider>();
         _magazineHand.SetActive(false);
 
-        Destroy(magazine, 10f);
+        Destroy(magazine, 4f);
     }
 
     private void Refill_Magazine()

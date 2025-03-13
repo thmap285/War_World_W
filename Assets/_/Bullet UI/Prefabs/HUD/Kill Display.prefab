@@ -35,7 +35,6 @@ RectTransform:
   m_Children:
   - {fileID: 224419332224277416}
   - {fileID: 224324861467819382}
-  - {fileID: 224045259800220718}
   m_Father: {fileID: 224171557603232084}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -499,12 +498,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137169512970732}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 224189882171726356}
+  m_Father: {fileID: 224171557603232084}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1672,7 +1671,6 @@ GameObject:
   - component: {fileID: 114250497630625498}
   - component: {fileID: 114376020654647118}
   - component: {fileID: 114236003622375336}
-  - component: {fileID: 114539837020404358}
   m_Layer: 5
   m_Name: Kill Display
   m_TagString: Untagged
@@ -1692,6 +1690,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 224045259800220718}
   - {fileID: 224737692934343742}
   - {fileID: 224593532043772580}
   - {fileID: 224541454288476098}
@@ -1780,18 +1779,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &114539837020404358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552877286533194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2e1ce3fe4b4851478e36a2f9a4db54b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1583234960921328
 GameObject:
   m_ObjectHideFlags: 0

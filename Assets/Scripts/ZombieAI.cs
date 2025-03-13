@@ -18,6 +18,7 @@ public class ZombieAI : MonoBehaviour
         _ragdollColliders = GetComponentsInChildren<Collider>();
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
+        target = GameObject.FindGameObjectWithTag("Player").transform;
 
         DisableRagdoll();
     }

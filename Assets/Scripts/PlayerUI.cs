@@ -15,6 +15,8 @@ public class PlayerUI : MonoBehaviour
     {
         _playerHealth = GetComponent<PlayerHealth>();
         GetComponent<PlayerEquip>().OnGunEquipped += UpdateGun;
+
+        SetCrosshair(false);
     }
 
     private void Update()
@@ -25,6 +27,7 @@ public class PlayerUI : MonoBehaviour
         }
         hpBar.fillAmount = _playerHealth.CurrentHealth / _playerHealth.MaxHealth;
         hpText.text = $"{_playerHealth.CurrentHealth / _playerHealth.MaxHealth * 100:0}%";
+
         if (_gun)
         {
             Refresh();

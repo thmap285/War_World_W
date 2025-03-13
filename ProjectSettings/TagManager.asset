@@ -9,6 +9,7 @@ TagManager:
   - FxTemporaire
   - Wall
   - Zombie
+  - Canvas
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Zombie
   - ZombieRagdoll
   - Camera
-  - Test
+  - NoLayer
   - 
   - 
   - 
