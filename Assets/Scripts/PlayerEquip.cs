@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerEquip : MonoBehaviour
@@ -6,17 +7,21 @@ public class PlayerEquip : MonoBehaviour
     public event Action<Gun> OnGunEquipped;
 
     [SerializeField] private Transform weaponParent;
-    [SerializeField] private Transform weaponRightGrip;
-    [SerializeField] private Transform weaponLeftGrip;
     [SerializeField] private Animator rigAnimator;
 
-    private Gun _gun;
+    private List<Gun> _ownedGuns = new List<Gun>();
+    private int _currentGunIndex = 0;
+    private Gun _currentGun;
 
     private void Start()
     {
-        _gun = GetComponentInChildren<Gun>();
+        _currentGun = GetComponentInChildren<Gun>();
         
-        EquipGun(_gun);
+        if(_currentGun)
+        {
+            _ownedGuns.Add(_currentGun);
+            EquipGun(_currentGun);
+        }
 
         // rigAnimator.updateMode = AnimatorUpdateMode.Fixed;
         // rigAnimator.cullingMode = AnimatorCullingMode.CullUpdateTransforms;
@@ -26,22 +31,35 @@ public class PlayerEquip : MonoBehaviour
 
     public void EquipGun(Gun newGun)
     {
-        if (_gun)
+        if (!_ownedGuns.Contains(newGun))
         {
-            Destroy(_gun.gameObject);
+            _ownedGuns.Add(newGun);
         }
 
-        _gun = newGun;
-
-        if (_gun)
+        if (_currentGun)
         {
-            _gun.transform.parent = weaponParent;
-            _gun.transform.localPosition = Vector3.zero;
-            _gun.transform.localRotation = Quaternion.identity;
-
-            rigAnimator.Play("Holster_" + _gun.Name, 0, 0f);
+            _currentGun.gameObject.SetActive(false);
         }
 
-        OnGunEquipped?.Invoke(_gun);
+        _currentGun = newGun;
+        _currentGunIndex = _ownedGuns.IndexOf(newGun);
+        _currentGun.gameObject.SetActive(true);
+
+        _currentGun.transform.parent = weaponParent;
+        _currentGun.transform.localPosition = Vector3.zero;
+        _currentGun.transform.localRotation = Quaternion.identity;
+        _currentGun.rigAnimator = rigAnimator;
+
+        rigAnimator.Play("Equip_" + _currentGun.Name, 0, 0f);
+
+        OnGunEquipped?.Invoke(_currentGun);
+    }
+
+    public void SwitchGun()
+    {
+        if (_ownedGuns.Count <= 1) return;
+
+        _currentGunIndex = (_currentGunIndex + 1) % _ownedGuns.Count;
+        EquipGun(_ownedGuns[_currentGunIndex]);
     }
 }

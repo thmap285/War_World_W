@@ -11,7 +11,9 @@ public class Gun : MonoBehaviour
     private float _nextFireTime;
 
     [Header("Ammo Settings")]
-    [SerializeField] private int maxAmmo = 30;
+    [SerializeField] private GameObject magazine;    
+    [SerializeField] private int maxAmmo = 300;
+    [SerializeField] private int clipSize = 30;
     [SerializeField] private float reloadTime = 2f;
 
     [Header("Bullet Spread Settings")]
@@ -41,18 +43,26 @@ public class Gun : MonoBehaviour
     [SerializeField] private CinemachineOrbitalFollow playerCamera;
     [SerializeField] private CinemachineImpulseSource impulseSource;
 
+    [HideInInspector] public Animator rigAnimator;
+
     private Coroutine _recoilCoroutine;
 
     private void Start()
     {
         playerCamera = FindFirstObjectByType<CinemachineOrbitalFollow>();
-        _currentAmmo = maxAmmo;
+        _currentAmmo = clipSize;
     }
 
     public void Shoot(Vector3 aimPos)
     {
-        // Tự động reload khi đạn hết
-        if (_currentAmmo <= 0 && !_isReloading) Reload();
+        if (_isReloading) return;
+
+        if (_currentAmmo <= 0)
+        {
+            Reload();
+            return; 
+        }
+
         if (!CanShoot) return;
 
         _nextFireTime = Time.time + fireRate;
@@ -78,23 +88,32 @@ public class Gun : MonoBehaviour
 
     public void Reload()
     {
-        if (!_isReloading)
+        if (!_isReloading )
         {
-            // fxMuzzleFlash.SetActive(false);
+
             StartCoroutine(ReloadRoutine());
         }
     }
 
     private IEnumerator ReloadRoutine()
     {
+        if (maxAmmo <= 0) yield break;
+
         _isReloading = true;
+        rigAnimator.SetTrigger("Reload_Weapon");
         Debug.Log("Reloading...");
 
         yield return new WaitForSeconds(reloadTime);
 
-        _currentAmmo = maxAmmo;
+        int ammoNeeded = clipSize - _currentAmmo;
+        int ammoToLoad = Mathf.Min(ammoNeeded, maxAmmo);
+
+        _currentAmmo += ammoToLoad;
+        maxAmmo -= ammoToLoad;
+
+        rigAnimator.ResetTrigger("Reload_Weapon"); 
         _isReloading = false;
-        Debug.Log("Reloaded!");
+        Debug.Log("Reloaded! Current Ammo: " + _currentAmmo + " / " + maxAmmo);
     }
 
     private void ApplyRecoil()
@@ -103,6 +122,8 @@ public class Gun : MonoBehaviour
         
         if (_recoilCoroutine != null)
             StopCoroutine(_recoilCoroutine);
+
+        rigAnimator.Play("Weapon_Recoil_" + gunName, 1, 0.0f); 
 
         _recoilCoroutine = StartCoroutine(RecoilRoutine());
     }
@@ -147,6 +168,10 @@ public class Gun : MonoBehaviour
 
     #region Getters and Setters
     public bool CanShoot => Time.time >= _nextFireTime && !_isReloading && _currentAmmo > 0;
+    public GameObject Magazine => magazine;
     public string Name => gunName;
+    public int Ammo => _currentAmmo;
+    public int MaxAmmo => maxAmmo;
+    public int ClipSize => clipSize;
     #endregion
 }

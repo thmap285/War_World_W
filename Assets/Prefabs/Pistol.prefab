@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 2409899584066551794}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0112, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -82,13 +82,15 @@ MonoBehaviour:
   gunName: Pistol
   damage: 6
   fireRate: 0.5
-  maxAmmo: 15
+  magazine: {fileID: 2592545528049391812}
+  maxAmmo: 100
+  clipSize: 15
   reloadTime: 1.2
   addSpread: 0
   spreadAngle: 1
-  addRecoil: 0
+  addRecoil: 1
   recoilPattern:
-  - {x: 0, y: 1}
+  - {x: 0, y: 0.5}
   recoilDuration: 0.1
   pfBullet: {fileID: 1551417492572840, guid: 79ea69f034f719f408ef7420f8bfb7d8, type: 3}
   bulletSpawnPoint: {fileID: 523005031103251454}
@@ -99,6 +101,7 @@ MonoBehaviour:
   tfMuzzleFlash: {fileID: 2427091276297358416}
   playerCamera: {fileID: 0}
   impulseSource: {fileID: 4398229136544276464}
+  rigAnimator: {fileID: 0}
 --- !u!114 &4398229136544276464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,5 +333,10 @@ PrefabInstance:
 --- !u!4 &2590606914982024076 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4300965689403036, guid: a1608518da2a041418e8a5351d223d94, type: 3}
+  m_PrefabInstance: {fileID: 2593203636841952528}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2592545528049391812 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1823660752924116, guid: a1608518da2a041418e8a5351d223d94, type: 3}
   m_PrefabInstance: {fileID: 2593203636841952528}
   m_PrefabAsset: {fileID: 0}

@@ -12,7 +12,6 @@ public class PlayerAim : MonoBehaviour
     [SerializeField] private CinemachineCamera aimCamera;
     [SerializeField] private CinemachineCamera followCamera;
     [SerializeField] private float aimSensitivity, normalSensitivity;
-    [SerializeField] private GameObject crosshair;
     [SerializeField] private LayerMask aimColliderLayerMask;
     [SerializeField] private Transform aimTransform;
 
@@ -20,20 +19,28 @@ public class PlayerAim : MonoBehaviour
     private ThirdPersonController _controller;
     private Gun _gun;
     private float _aimRigWeight;
+    private PlayerUI _playerUI;
 
     private void Awake()
     {
         _input = GetComponent<StarterAssetsInputs>();
         _controller = GetComponent<ThirdPersonController>();
+        _playerUI = GetComponent<PlayerUI>();
+
         GetComponent<PlayerEquip>().OnGunEquipped += UpdateGun;
 
         aimCamera.Priority = -1;
-        crosshair.SetActive(false);
     }
 
     private void Update()
     {
         HandleAimRig();
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            GetComponent<PlayerEquip>().SwitchGun();
+        }
+
         if (!_gun) return;
 
         Vector3 aimPos = GetAimPoint();
@@ -46,14 +53,7 @@ public class PlayerAim : MonoBehaviour
         {
             ExitAimMode();
         }
-
-        if (_input.reload)
-        {
-            _gun.Reload();
-            _input.reload = false;
-        }
     }
-
     private void HandleAimRig()
     {
         float targetWeight = _gun ? _aimRigWeight : 0f;
@@ -68,15 +68,15 @@ public class PlayerAim : MonoBehaviour
         _controller.SetRotateOnMove(false);
         _controller.SetSensitivity(aimSensitivity);
         _controller.SetSprint(false);
-        
+
         aimCamera.Priority = 10;
-        crosshair.SetActive(true);
-        rigAnimator.SetBool("Holster_Weapon", false);
+        _playerUI.SetCrosshair(true);
+        rigAnimator.SetBool("Equip_Weapon", false);
 
         Vector3 aimDirection = new Vector3(aimPos.x, transform.position.y, aimPos.z);
-        transform.forward = Vector3.Lerp(transform.forward, 
+        transform.forward = Vector3.Lerp(transform.forward,
                 (aimDirection - transform.position).normalized, Time.deltaTime * 20f);
-        
+
         _aimRigWeight = 1f;
     }
 
@@ -87,11 +87,11 @@ public class PlayerAim : MonoBehaviour
         _controller.SetSprint(true);
 
         aimCamera.Priority = -1;
-        crosshair.SetActive(false);
-        rigAnimator.SetBool("Holster_Weapon", true);
-        
+        _playerUI.SetCrosshair(false);
+        rigAnimator.SetBool("Equip_Weapon", true);
+
         SyncCameraAxes();
-        
+
         _aimRigWeight = 0f;
     }
 
