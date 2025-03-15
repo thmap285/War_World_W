@@ -219,7 +219,7 @@ namespace StarterAssets
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
             if(!canSprint) targetSpeed = MoveSpeed;
-
+        
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -283,6 +283,8 @@ namespace StarterAssets
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+                _animator.SetFloat("InputX", _input.move.x, 0.1f, Time.deltaTime);
+                _animator.SetFloat("InputY", _input.move.y, 0.1f, Time.deltaTime);
             }
         }
 

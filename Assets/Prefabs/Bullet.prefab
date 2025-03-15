@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
-  damage: 100
+  damage: 0
   lifeTime: 2
   hitEnemyEffect: {fileID: 1362418652685942, guid: b369efb4abe69e044890b664115fab9e, type: 3}
   hitWallEffect: {fileID: 100006, guid: 9e95c7b2183a4f345aaf86846f8f1918, type: 3}

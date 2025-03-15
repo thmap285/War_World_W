@@ -44,7 +44,7 @@ public class PlayerUI : MonoBehaviour
     private void Refresh()
     {
         ammoText.text = _gun.Ammo.ToString();
-        maxAmmoText.text = _gun.MaxAmmo.ToString();
+        maxAmmoText.text = _gun.TotalAmmo.ToString();
         gunNameText.text = _gun.Name;
     }
 

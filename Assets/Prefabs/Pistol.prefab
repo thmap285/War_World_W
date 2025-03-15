@@ -82,9 +82,9 @@ MonoBehaviour:
   gunName: Pistol
   damage: 6
   fireRate: 0.5
-  magazine: {fileID: 2592545528049391812}
-  maxAmmo: 100
-  clipSize: 15
+  goMagazine: {fileID: 2592545528049391812}
+  maxMagazines: 10
+  sizeOfMagazine: 30
   reloadTime: 1.2
   addSpread: 0
   spreadAngle: 1
@@ -330,7 +330,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1959191366579420, guid: a1608518da2a041418e8a5351d223d94, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1608518da2a041418e8a5351d223d94, type: 3}

@@ -152,6 +152,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeInTime: 0.25
-  visibleTime: 0.01
+  visibleTime: 0.1
   fadeOutTime: 0.25
-  growSpeed: 1.5

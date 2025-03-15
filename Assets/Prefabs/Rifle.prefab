@@ -82,15 +82,15 @@ MonoBehaviour:
   gunName: Rifle
   damage: 10
   fireRate: 0.1
-  magazine: {fileID: 7642012737773997809}
-  maxAmmo: 300
-  clipSize: 30
-  reloadTime: 2
-  addSpread: 1
+  goMagazine: {fileID: 7642012737773997809}
+  maxMagazines: 10
+  sizeOfMagazine: 30
+  reloadTime: 1
+  addSpread: 0
   spreadAngle: 1
   addRecoil: 1
   recoilPattern:
-  - {x: 0, y: 1}
+  - {x: 0, y: 0}
   recoilDuration: 0.1
   pfBullet: {fileID: 1551417492572840, guid: 79ea69f034f719f408ef7420f8bfb7d8, type: 3}
   bulletSpawnPoint: {fileID: 523005031103251454}
@@ -397,9 +397,9 @@ MonoBehaviour:
   gunName: Gunnnnnnnn
   damage: 10
   fireRate: 0.1
-  magazine: {fileID: 7642012737773997809}
-  maxAmmo: 30
-  clipSize: 30
+  goMagazine: {fileID: 0}
+  maxMagazines: 10
+  sizeOfMagazine: 30
   reloadTime: 2
   addSpread: 1
   spreadAngle: 1

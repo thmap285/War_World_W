@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 
 public class Gun : MonoBehaviour
 {
@@ -11,9 +12,9 @@ public class Gun : MonoBehaviour
     private float _nextFireTime;
 
     [Header("Ammo Settings")]
-    [SerializeField] private GameObject magazine;    
-    [SerializeField] private int maxAmmo = 300;
-    [SerializeField] private int clipSize = 30;
+    [SerializeField] private GameObject goMagazine;
+    [SerializeField] private int maxMagazines = 10;
+    [SerializeField] private int sizeOfMagazine = 30;
     [SerializeField] private float reloadTime = 2f;
 
     [Header("Bullet Spread Settings")]
@@ -28,8 +29,8 @@ public class Gun : MonoBehaviour
     [Header("Bullet Projectile Settings")]
     [SerializeField] private GameObject pfBullet;
     [SerializeField] private Transform bulletSpawnPoint;
-
-    private int _currentAmmo;
+    private int _currentAmmoInMagazine;
+    private int _totalAmmo;
     private bool _isReloading = false;
 
     [Header("Audio Settings")]
@@ -45,133 +46,132 @@ public class Gun : MonoBehaviour
 
     [HideInInspector] public Animator rigAnimator;
 
-    private Coroutine _recoilCoroutine;
-
     private void Start()
     {
         playerCamera = FindFirstObjectByType<CinemachineOrbitalFollow>();
-        _currentAmmo = clipSize;
+        _currentAmmoInMagazine = sizeOfMagazine;
+        _totalAmmo = maxMagazines * sizeOfMagazine;
     }
 
     public void Shoot(Vector3 aimPos)
     {
-        if (_isReloading) return;
-
-        if (_currentAmmo <= 0)
-        {
-            Reload();
-            return; 
-        }
-
         if (!CanShoot) return;
 
         _nextFireTime = Time.time + fireRate;
-        _currentAmmo--;
+        _currentAmmoInMagazine--;
 
-        Vector3 direction = (aimPos - bulletSpawnPoint.position).normalized;
-        if (Vector3.Distance(bulletSpawnPoint.position, aimPos) < 1.5f)
-        {
-            direction = bulletSpawnPoint.forward;
-        }
-
-        Quaternion spreadRotation = GetSpreadRotation();
-        direction = spreadRotation * direction;
-
+        Vector3 direction = GetBulletDirection(aimPos);
         Instantiate(pfBullet, bulletSpawnPoint.position, Quaternion.LookRotation(direction));
 
-        Instantiate(pfMuzzleFlash, tfMuzzleFlash);
-        impulseSource.GenerateImpulse();
-
+        ApplyEffects();
         ApplyRecoil();
-        ApplySound();
+        ApplySound(shotSound);
+
+        AutoReload();
+    }
+
+    private Vector3 GetBulletDirection(Vector3 aimPos)
+    {
+        Vector3 direction = (aimPos - bulletSpawnPoint.position).normalized;
+
+        if (Vector3.Distance(bulletSpawnPoint.position, aimPos) < 1.5f)
+            direction = bulletSpawnPoint.forward;
+
+        return GetSpreadRotation() * direction;
+    }
+
+    private void ApplyEffects()
+    {
+        if (pfMuzzleFlash && tfMuzzleFlash)
+            Instantiate(pfMuzzleFlash, tfMuzzleFlash.position, tfMuzzleFlash.rotation, tfMuzzleFlash);
+
+        impulseSource?.GenerateImpulse();
+    }
+
+    private void AutoReload()
+    {
+        if (_currentAmmoInMagazine <= 0)
+        {
+            Reload();
+        }
     }
 
     public void Reload()
     {
-        if (!_isReloading )
-        {
-
-            StartCoroutine(ReloadRoutine());
-        }
+        if (_isReloading || _currentAmmoInMagazine == sizeOfMagazine || _totalAmmo <= 0) return;
+        StartCoroutine(ReloadRoutine());
     }
 
     private IEnumerator ReloadRoutine()
     {
-        if (maxAmmo <= 0) yield break;
+        if (_totalAmmo <= 0) yield break;
 
         _isReloading = true;
         rigAnimator.SetTrigger("Reload_Weapon");
-        Debug.Log("Reloading...");
+        ApplySound(reloadSound);
 
-        yield return new WaitForSeconds(reloadTime);
+        float waitTime = rigAnimator ? Mathf.Max(reloadTime, rigAnimator.GetCurrentAnimatorStateInfo(0).length) : reloadTime;
+        yield return new WaitForSeconds(waitTime);
 
-        int ammoNeeded = clipSize - _currentAmmo;
-        int ammoToLoad = Mathf.Min(ammoNeeded, maxAmmo);
+        rigAnimator.ResetTrigger("Reload_Weapon");
+        int ammoToLoad = Mathf.Min(sizeOfMagazine - _currentAmmoInMagazine, _totalAmmo);
+        _currentAmmoInMagazine += ammoToLoad;
+        _totalAmmo -= ammoToLoad;
 
-        _currentAmmo += ammoToLoad;
-        maxAmmo -= ammoToLoad;
-
-        rigAnimator.ResetTrigger("Reload_Weapon"); 
         _isReloading = false;
-        Debug.Log("Reloaded! Current Ammo: " + _currentAmmo + " / " + maxAmmo);
     }
 
     private void ApplyRecoil()
     {
-        if(!addRecoil) return;
-        
-        if (_recoilCoroutine != null)
-            StopCoroutine(_recoilCoroutine);
+        if (!addRecoil || playerCamera == null || recoilPattern == null || recoilPattern.Length == 0) return;
 
-        rigAnimator.Play("Weapon_Recoil_" + gunName, 1, 0.0f); 
-
-        _recoilCoroutine = StartCoroutine(RecoilRoutine());
+        ApplyAnimation("Weapon_Recoil_" + gunName);
+        StartCoroutine(RecoilRoutine());
     }
 
     private IEnumerator RecoilRoutine()
     {
         float stepTime = recoilDuration / recoilPattern.Length;
-        int index = 0;
-
-        while (index < recoilPattern.Length)
+        foreach (var recoil in recoilPattern)
         {
-            playerCamera.HorizontalAxis.Value -= recoilPattern[index].x;
-            playerCamera.VerticalAxis.Value -= recoilPattern[index].y;
-
-            index++;
+            playerCamera.HorizontalAxis.Value -= recoil.x;
+            playerCamera.VerticalAxis.Value -= recoil.y;
             yield return new WaitForSeconds(stepTime);
-        }
-    }
-
-    private void ApplySound()
-    {
-        if (shotSound)
-        {
-            AudioSource.PlayClipAtPoint(shotSound, bulletSpawnPoint.transform.position, volume);
         }
     }
 
     private Quaternion GetSpreadRotation()
     {
-        if (!addSpread || spreadAngle <= 0f)
-            return Quaternion.identity;
+        if (!addSpread || spreadAngle <= 0f) return Quaternion.identity;
 
-        // Lấy một điểm ngẫu nhiên trên mặt cầu đơn vị
-        Vector3 randomPoint = Random.onUnitSphere;
-
-        // Điều chỉnh độ lớn của vector tán xạ theo spreadAngle
-        randomPoint *= Mathf.Tan(spreadAngle * Mathf.Deg2Rad); // Đưa về đơn vị góc
-
-        // Xoay hướng bắn ban đầu theo tán xạ
+        Vector3 randomPoint = Random.insideUnitSphere * Mathf.Tan(spreadAngle * Mathf.Deg2Rad);
         return Quaternion.FromToRotation(Vector3.forward, Vector3.forward + randomPoint);
     }
 
-    #region Getters and Setters
-    public bool CanShoot => Time.time >= _nextFireTime && !_isReloading && _currentAmmo > 0;
-    public GameObject Magazine => magazine;
+    public void AddAmmo(int amount)
+    {
+        if (amount > 0)
+            _totalAmmo = Mathf.Min(_totalAmmo + amount, maxMagazines * sizeOfMagazine);
+    }
+
+    private void ApplySound(AudioClip clip)
+    {
+        if (clip != null)
+            AudioSource.PlayClipAtPoint(clip, transform.position, volume);
+    }
+
+    private void ApplyAnimation(string animationName)
+    {
+        if (rigAnimator != null && !string.IsNullOrEmpty(animationName))
+            rigAnimator.Play(animationName, 1, 0.0f);
+    }
+
+    public bool CanShoot => Time.time >= _nextFireTime && !_isReloading && _currentAmmoInMagazine > 0;
+    public GameObject MagazineGO => goMagazine;
+    public bool IsReloading => _isReloading;
     public string Name => gunName;
-    public int Ammo => _currentAmmo;
-    public int MaxAmmo => maxAmmo;
-    public int ClipSize => clipSize;
-    #endregion
+    public int Ammo => _currentAmmoInMagazine;
+    public int TotalAmmo => _totalAmmo;
+    public int SizeOfMagazine => sizeOfMagazine;
+    public int MaxMagazines => maxMagazines;
 }

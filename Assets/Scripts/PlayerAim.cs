@@ -9,6 +9,7 @@ public class PlayerAim : MonoBehaviour
     [SerializeField] private Rig[] aimRigs;
     [SerializeField] private float aimDuration = 10f;
     [SerializeField] private Animator rigAnimator;
+    [SerializeField] private Animator animator;
     [SerializeField] private CinemachineCamera aimCamera;
     [SerializeField] private CinemachineCamera followCamera;
     [SerializeField] private float aimSensitivity, normalSensitivity;
@@ -26,6 +27,7 @@ public class PlayerAim : MonoBehaviour
         _input = GetComponent<StarterAssetsInputs>();
         _controller = GetComponent<ThirdPersonController>();
         _playerUI = GetComponent<PlayerUI>();
+        animator = GetComponent<Animator>();
 
         GetComponent<PlayerEquip>().OnGunEquipped += UpdateGun;
 
@@ -36,7 +38,7 @@ public class PlayerAim : MonoBehaviour
     {
         HandleAimRig();
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && !_gun.IsReloading)
         {
             GetComponent<PlayerEquip>().SwitchGun();
         }
@@ -72,6 +74,7 @@ public class PlayerAim : MonoBehaviour
         aimCamera.Priority = 10;
         _playerUI.SetCrosshair(true);
         rigAnimator.SetBool("Equip_Weapon", false);
+        animator.SetLayerWeight(1, 1);
 
         Vector3 aimDirection = new Vector3(aimPos.x, transform.position.y, aimPos.z);
         transform.forward = Vector3.Lerp(transform.forward,
@@ -85,6 +88,7 @@ public class PlayerAim : MonoBehaviour
         _controller.SetRotateOnMove(true);
         _controller.SetSensitivity(normalSensitivity);
         _controller.SetSprint(true);
+        animator.SetLayerWeight(1, 0);
 
         aimCamera.Priority = -1;
         _playerUI.SetCrosshair(false);

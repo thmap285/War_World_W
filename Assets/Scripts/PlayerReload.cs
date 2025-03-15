@@ -26,7 +26,7 @@ public class PlayerReload : MonoBehaviour
 
         if (_input.reload)
         {
-            if (_gun.MaxAmmo > 0 && _gun.Ammo < _gun.ClipSize)
+            if (_gun.TotalAmmo > 0 && _gun.Ammo < _gun.SizeOfMagazine)
             {
                 _gun.Reload();
             }
@@ -55,8 +55,8 @@ public class PlayerReload : MonoBehaviour
 
     private void Detach_Magazine()
     {
-        _magazineHand = Instantiate(_gun.Magazine, leftHand, true);
-        _gun.Magazine.SetActive(false);
+        _magazineHand = Instantiate(_gun.MagazineGO, leftHand, true);
+        _gun.MagazineGO.SetActive(false);
     }
 
     private void Drop_Magazine()
@@ -76,7 +76,7 @@ public class PlayerReload : MonoBehaviour
 
     private void Attach_Magazine()
     {
-        _gun.Magazine.SetActive(true);
+        _gun.MagazineGO.SetActive(true);
         Destroy(_magazineHand);
     }
 

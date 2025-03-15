@@ -1504,6 +1504,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!95 &2049744523 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7103975804514940858, guid: 68f368cdb6db8fd47b333cddcf138402, type: 3}
+  m_PrefabInstance: {fileID: 7825029282095757808}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &990531117351751312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1514,7 +1519,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1513796636815693435, guid: b80c81980e55045408412eb4fb69abfd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 39.899998
+      value: 40.1
       objectReference: {fileID: 0}
     - target: {fileID: 1513796636815693435, guid: b80c81980e55045408412eb4fb69abfd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1555,6 +1560,10 @@ PrefabInstance:
     - target: {fileID: 2238811570066839977, guid: b80c81980e55045408412eb4fb69abfd, type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 6831572510552589921, guid: b80c81980e55045408412eb4fb69abfd, type: 3}
+      propertyPath: field of view
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1641,6 +1650,10 @@ PrefabInstance:
       value: Points Manager
       objectReference: {fileID: 0}
     - target: {fileID: 3620756277116047565, guid: 6a52abe9714c17f4e8db038baecb1228, type: 3}
+      propertyPath: point
+      value: 20000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620756277116047565, guid: 6a52abe9714c17f4e8db038baecb1228, type: 3}
       propertyPath: pointText
       value: 
       objectReference: {fileID: 924968314}
@@ -1710,6 +1723,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 668300605}
     - target: {fileID: 5190790448003510712, guid: dc353a8185d0a0b4cba4daf510f65af9, type: 3}
+      propertyPath: timeBetweenWaves
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5190790448003510712, guid: dc353a8185d0a0b4cba4daf510f65af9, type: 3}
+      propertyPath: waves.Array.data[0].rate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5190790448003510712, guid: dc353a8185d0a0b4cba4daf510f65af9, type: 3}
       propertyPath: 'spawnPoints.Array.data[0]'
       value: 
       objectReference: {fileID: 1680693595}
@@ -1745,6 +1766,10 @@ PrefabInstance:
       propertyPath: 'spawnPoints.Array.data[8]'
       value: 
       objectReference: {fileID: 929320356}
+    - target: {fileID: 5190790448003510712, guid: dc353a8185d0a0b4cba4daf510f65af9, type: 3}
+      propertyPath: waves.Array.data[0].enemyGroups.Array.data[0].count
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5762794457121277108, guid: dc353a8185d0a0b4cba4daf510f65af9, type: 3}
       propertyPath: m_Name
       value: Wave Manager
@@ -1802,6 +1827,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1039050148946172554, guid: 68f368cdb6db8fd47b333cddcf138402, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1582863742674594222, guid: 68f368cdb6db8fd47b333cddcf138402, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
@@ -1854,10 +1883,26 @@ PrefabInstance:
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 6257008567682659948}
+    - target: {fileID: 4408461307736797726, guid: 68f368cdb6db8fd47b333cddcf138402, type: 3}
+      propertyPath: Offset.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272513212831441480, guid: 68f368cdb6db8fd47b333cddcf138402, type: 3}
+      propertyPath: cursorLocked
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272513212831441480, guid: 68f368cdb6db8fd47b333cddcf138402, type: 3}
+      propertyPath: cursorInputForLook
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5350117445005887544, guid: 68f368cdb6db8fd47b333cddcf138402, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 6257008567682659948}
+    - target: {fileID: 5587215006672110019, guid: 68f368cdb6db8fd47b333cddcf138402, type: 3}
+      propertyPath: m_Weight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5843064516095004444, guid: 68f368cdb6db8fd47b333cddcf138402, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1887,9 +1932,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1151876664}
     - target: {fileID: 7637993191837247554, guid: 68f368cdb6db8fd47b333cddcf138402, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 2049744523}
+    - target: {fileID: 7637993191837247554, guid: 68f368cdb6db8fd47b333cddcf138402, type: 3}
       propertyPath: aimTransform
       value: 
       objectReference: {fileID: 6257008567682659948}
+    - target: {fileID: 7637993191837247554, guid: 68f368cdb6db8fd47b333cddcf138402, type: 3}
+      propertyPath: aimColliderLayerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9047868596364371159, guid: 68f368cdb6db8fd47b333cddcf138402, type: 3}
+      propertyPath: VerticalAxis.Range.y
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -62,4 +62,6 @@ public class PlayerEquip : MonoBehaviour
         _currentGunIndex = (_currentGunIndex + 1) % _ownedGuns.Count;
         EquipGun(_ownedGuns[_currentGunIndex]);
     }
+
+    public List<Gun> OwnedGuns => _ownedGuns;
 }
