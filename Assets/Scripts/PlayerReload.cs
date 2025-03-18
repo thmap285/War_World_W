@@ -55,8 +55,8 @@ public class PlayerReload : MonoBehaviour
 
     private void Detach_Magazine()
     {
-        _magazineHand = Instantiate(_gun.MagazineGO, leftHand, true);
-        _gun.MagazineGO.SetActive(false);
+        _magazineHand = Instantiate(_gun.Magazine, leftHand, true);
+        _gun.Magazine.SetActive(false);
     }
 
     private void Drop_Magazine()
@@ -76,7 +76,7 @@ public class PlayerReload : MonoBehaviour
 
     private void Attach_Magazine()
     {
-        _gun.MagazineGO.SetActive(true);
+        _gun.Magazine.SetActive(true);
         Destroy(_magazineHand);
     }
 

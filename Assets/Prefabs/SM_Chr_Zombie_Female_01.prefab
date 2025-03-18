@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4817859122867884483}
-  - component: {fileID: 1816927405777002980}
-  - component: {fileID: 9058152295180515257}
-  - component: {fileID: 1308126224612326399}
+  - component: {fileID: 8378353141170896285}
+  - component: {fileID: 7893031283093129580}
+  - component: {fileID: 6795687387077707757}
   m_Layer: 6
   m_Name: Shoulder_R
   m_TagString: Untagged
@@ -35,7 +35,7 @@ Transform:
   - {fileID: 7630096585650286251}
   m_Father: {fileID: 9106700821112555656}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1816927405777002980
+--- !u!136 &8378353141170896285
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,7 +58,7 @@ CapsuleCollider:
   m_Height: 0.33947432
   m_Direction: 0
   m_Center: {x: 0.16973716, y: 0, z: 0}
---- !u!54 &9058152295180515257
+--- !u!54 &7893031283093129580
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,7 +66,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 225425207640111052}
   serializedVersion: 4
-  m_Mass: 3.125
+  m_Mass: 1.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -85,7 +85,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &1308126224612326399
+--- !u!144 &6795687387077707757
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,13 +93,13 @@ CharacterJoint:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 225425207640111052}
   serializedVersion: 3
-  m_ConnectedBody: {fileID: 3922214148996918974}
+  m_ConnectedBody: {fileID: 4724117483837311699}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  m_SwingAxis: {x: 0, y: 0, z: -1}
+  m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
@@ -238,9 +238,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7630096585650286251}
-  - component: {fileID: 6440615513377433843}
-  - component: {fileID: 8416713662556060223}
-  - component: {fileID: 6065318846758801885}
+  - component: {fileID: 5118004091032303807}
+  - component: {fileID: 1953696705881727404}
+  - component: {fileID: 8751909379545642151}
   m_Layer: 6
   m_Name: Elbow_R
   m_TagString: Untagged
@@ -264,7 +264,7 @@ Transform:
   - {fileID: 1775073073645153790}
   m_Father: {fileID: 4817859122867884483}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &6440615513377433843
+--- !u!136 &5118004091032303807
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -287,7 +287,7 @@ CapsuleCollider:
   m_Height: 0.49058163
   m_Direction: 0
   m_Center: {x: 0.24529082, y: 0, z: 0}
---- !u!54 &8416713662556060223
+--- !u!54 &1953696705881727404
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -295,7 +295,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1058157050913298472}
   serializedVersion: 4
-  m_Mass: 3.125
+  m_Mass: 1.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -314,7 +314,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &6065318846758801885
+--- !u!144 &8751909379545642151
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -322,10 +322,10 @@ CharacterJoint:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1058157050913298472}
   serializedVersion: 3
-  m_ConnectedBody: {fileID: 9058152295180515257}
+  m_ConnectedBody: {fileID: 7893031283093129580}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 0, z: -1}
+  m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
   m_SwingAxis: {x: 0, y: -1, z: 0}
@@ -432,9 +432,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 364652824216615639}
-  - component: {fileID: 1758911007762263602}
-  - component: {fileID: 7514629960878639998}
-  - component: {fileID: 4853730093849616298}
+  - component: {fileID: 5262025273108207914}
+  - component: {fileID: 5734753513996995508}
+  - component: {fileID: 2741204025231772715}
   m_Layer: 6
   m_Name: Elbow_L
   m_TagString: Untagged
@@ -458,7 +458,7 @@ Transform:
   - {fileID: 1423260032435865704}
   m_Father: {fileID: 2464810278232074492}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1758911007762263602
+--- !u!136 &5262025273108207914
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -481,7 +481,7 @@ CapsuleCollider:
   m_Height: 0.49058583
   m_Direction: 0
   m_Center: {x: -0.24529292, y: 0, z: 0}
---- !u!54 &7514629960878639998
+--- !u!54 &5734753513996995508
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -489,7 +489,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2177623909245691268}
   serializedVersion: 4
-  m_Mass: 3.125
+  m_Mass: 1.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -508,7 +508,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &4853730093849616298
+--- !u!144 &2741204025231772715
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -516,10 +516,10 @@ CharacterJoint:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2177623909245691268}
   serializedVersion: 3
-  m_ConnectedBody: {fileID: 2911351665552026066}
+  m_ConnectedBody: {fileID: 8034165423524649818}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 0, z: 1}
+  m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
   m_SwingAxis: {x: 0, y: 1, z: 0}
@@ -721,9 +721,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 632776768191449500}
-  - component: {fileID: 1487659112218612066}
-  - component: {fileID: 7688056651247658281}
-  - component: {fileID: 3709518525223943869}
+  - component: {fileID: 3025922995831996174}
+  - component: {fileID: 3639626301185401988}
+  - component: {fileID: 401518059626290495}
   m_Layer: 6
   m_Name: UpperLeg_L
   m_TagString: Untagged
@@ -747,7 +747,7 @@ Transform:
   - {fileID: 4904986454124240088}
   m_Father: {fileID: 1353233677619517084}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1487659112218612066
+--- !u!136 &3025922995831996174
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -766,11 +766,11 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.11979284
-  m_Height: 0.39930946
+  m_Radius: 0.11979279
+  m_Height: 0.39930928
   m_Direction: 0
-  m_Center: {x: 0.19965473, y: 0, z: 0}
---- !u!54 &7688056651247658281
+  m_Center: {x: 0.19965464, y: 0, z: 0}
+--- !u!54 &3639626301185401988
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -778,7 +778,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3368723415650519841}
   serializedVersion: 4
-  m_Mass: 4.6875
+  m_Mass: 1.875
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -797,7 +797,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &3709518525223943869
+--- !u!144 &401518059626290495
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -805,13 +805,13 @@ CharacterJoint:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3368723415650519841}
   serializedVersion: 3
-  m_ConnectedBody: {fileID: 8833586194975466927}
+  m_ConnectedBody: {fileID: 8325962760659000179}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 1, z: 0}
+  m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  m_SwingAxis: {x: 0, y: 0, z: 1}
+  m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
@@ -915,9 +915,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6351047820109939203}
-  - component: {fileID: 968780717394770215}
-  - component: {fileID: 4526798285672499917}
-  - component: {fileID: 634701812173877456}
+  - component: {fileID: 8555937319035877331}
+  - component: {fileID: 6645569113013700042}
+  - component: {fileID: 1696774105991909506}
   m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
@@ -944,7 +944,7 @@ Transform:
   - {fileID: 4753930919885240379}
   m_Father: {fileID: 4683975862045611839}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &968780717394770215
+--- !u!135 &8555937319035877331
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -965,7 +965,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.09549427
   m_Center: {x: 0, y: 0.09549427, z: 0}
---- !u!54 &4526798285672499917
+--- !u!54 &6645569113013700042
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -973,7 +973,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3786824810885934465}
   serializedVersion: 4
-  m_Mass: 3.125
+  m_Mass: 1.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -992,7 +992,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &634701812173877456
+--- !u!144 &1696774105991909506
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1000,13 +1000,13 @@ CharacterJoint:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3786824810885934465}
   serializedVersion: 3
-  m_ConnectedBody: {fileID: 3922214148996918974}
+  m_ConnectedBody: {fileID: 4724117483837311699}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
+  m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  m_SwingAxis: {x: 0, y: 0, z: 1}
+  m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
@@ -1145,9 +1145,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4904986454124240088}
-  - component: {fileID: 1509919761819828364}
-  - component: {fileID: 6215671609166859561}
-  - component: {fileID: 3899283112452879995}
+  - component: {fileID: 7255032403022602909}
+  - component: {fileID: 3912565982755036635}
+  - component: {fileID: 449111270888571522}
   m_Layer: 6
   m_Name: LowerLeg_L
   m_TagString: Untagged
@@ -1171,7 +1171,7 @@ Transform:
   - {fileID: 4083083378366931699}
   m_Father: {fileID: 632776768191449500}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1509919761819828364
+--- !u!136 &7255032403022602909
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1194,7 +1194,7 @@ CapsuleCollider:
   m_Height: 0.4315473
   m_Direction: 0
   m_Center: {x: 0.21577366, y: 0, z: 0}
---- !u!54 &6215671609166859561
+--- !u!54 &3912565982755036635
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1202,7 +1202,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4526685693473645881}
   serializedVersion: 4
-  m_Mass: 4.6875
+  m_Mass: 1.875
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1221,7 +1221,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &3899283112452879995
+--- !u!144 &449111270888571522
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1229,13 +1229,13 @@ CharacterJoint:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4526685693473645881}
   serializedVersion: 3
-  m_ConnectedBody: {fileID: 7688056651247658281}
+  m_ConnectedBody: {fileID: 3639626301185401988}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 0, z: -1}
+  m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  m_SwingAxis: {x: 0, y: 1, z: 0}
+  m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
@@ -1312,7 +1312,8 @@ GameObject:
   - component: {fileID: 516454810981644635}
   - component: {fileID: 8984581549110531250}
   - component: {fileID: 6575036172197761613}
-  - component: {fileID: 339382505012582455}
+  - component: {fileID: 5136893313917413662}
+  - component: {fileID: 3678694860674365252}
   m_Layer: 6
   m_Name: SM_Chr_Zombie_Female_01
   m_TagString: Zombie
@@ -1394,7 +1395,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  testCollider: {fileID: 339382505012582455}
 --- !u!114 &6575036172197761613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1409,8 +1409,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   points: 100
---- !u!136 &339382505012582455
-CapsuleCollider:
+--- !u!65 &5136893313917413662
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1427,11 +1427,36 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.28
-  m_Height: 1.8
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.93, z: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.4220276, y: 1.8400756, z: 0.3413849}
+  m_Center: {x: 0, y: 0.89048046, z: 0}
+--- !u!54 &3678694860674365252
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709765423732750212}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 14
+  m_CollisionDetection: 2
 --- !u!1 &4792173991019276172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1958,9 +1983,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2464810278232074492}
-  - component: {fileID: 6368531409376167755}
-  - component: {fileID: 2911351665552026066}
-  - component: {fileID: 7332294943091321355}
+  - component: {fileID: 9027149505180384908}
+  - component: {fileID: 8034165423524649818}
+  - component: {fileID: 999808784691473700}
   m_Layer: 6
   m_Name: Shoulder_L
   m_TagString: Untagged
@@ -1984,7 +2009,7 @@ Transform:
   - {fileID: 364652824216615639}
   m_Father: {fileID: 2625993009790984433}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &6368531409376167755
+--- !u!136 &9027149505180384908
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2007,7 +2032,7 @@ CapsuleCollider:
   m_Height: 0.3394742
   m_Direction: 0
   m_Center: {x: -0.1697371, y: 0, z: 0}
---- !u!54 &2911351665552026066
+--- !u!54 &8034165423524649818
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2015,7 +2040,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7166744009155485780}
   serializedVersion: 4
-  m_Mass: 3.125
+  m_Mass: 1.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2034,7 +2059,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &7332294943091321355
+--- !u!144 &999808784691473700
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2042,13 +2067,13 @@ CharacterJoint:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7166744009155485780}
   serializedVersion: 3
-  m_ConnectedBody: {fileID: 3922214148996918974}
+  m_ConnectedBody: {fileID: 4724117483837311699}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  m_SwingAxis: {x: 0, y: 0, z: 1}
+  m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
@@ -2333,9 +2358,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1987191621275693176}
-  - component: {fileID: 8332028541088799958}
-  - component: {fileID: 3348008760745863036}
-  - component: {fileID: 4612002984712397245}
+  - component: {fileID: 1313903536740475159}
+  - component: {fileID: 8243871367591224713}
+  - component: {fileID: 8853292580866860007}
   m_Layer: 6
   m_Name: UpperLeg_R
   m_TagString: Untagged
@@ -2359,7 +2384,7 @@ Transform:
   - {fileID: 2686745715471285987}
   m_Father: {fileID: 1353233677619517084}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &8332028541088799958
+--- !u!136 &1313903536740475159
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2378,11 +2403,11 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.11979274
-  m_Height: 0.3993091
+  m_Radius: 0.11979277
+  m_Height: 0.39930922
   m_Direction: 0
-  m_Center: {x: -0.19965455, y: 0, z: 0}
---- !u!54 &3348008760745863036
+  m_Center: {x: -0.19965461, y: 0, z: 0}
+--- !u!54 &8243871367591224713
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2390,7 +2415,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7738549348292466372}
   serializedVersion: 4
-  m_Mass: 4.6875
+  m_Mass: 1.875
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2409,7 +2434,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &4612002984712397245
+--- !u!144 &8853292580866860007
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2417,13 +2442,13 @@ CharacterJoint:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7738549348292466372}
   serializedVersion: 3
-  m_ConnectedBody: {fileID: 8833586194975466927}
+  m_ConnectedBody: {fileID: 8325962760659000179}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 1, z: 0}
+  m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  m_SwingAxis: {x: 0, y: 0, z: -1}
+  m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
@@ -2464,9 +2489,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2686745715471285987}
-  - component: {fileID: 6276801546390624048}
-  - component: {fileID: 5656012355335966351}
-  - component: {fileID: 4574126988972770634}
+  - component: {fileID: 4439315493652157052}
+  - component: {fileID: 6268312250975199595}
+  - component: {fileID: 7281916896611183545}
   m_Layer: 6
   m_Name: LowerLeg_R
   m_TagString: Untagged
@@ -2490,7 +2515,7 @@ Transform:
   - {fileID: 3785569499690667305}
   m_Father: {fileID: 1987191621275693176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &6276801546390624048
+--- !u!136 &4439315493652157052
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2509,11 +2534,11 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.10788694
-  m_Height: 0.43154776
+  m_Radius: 0.10788697
+  m_Height: 0.43154788
   m_Direction: 0
-  m_Center: {x: -0.21577388, y: 0, z: 0}
---- !u!54 &5656012355335966351
+  m_Center: {x: -0.21577394, y: 0, z: 0}
+--- !u!54 &6268312250975199595
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2521,7 +2546,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7827234204751706657}
   serializedVersion: 4
-  m_Mass: 4.6875
+  m_Mass: 1.875
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2540,7 +2565,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &4574126988972770634
+--- !u!144 &7281916896611183545
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2548,13 +2573,13 @@ CharacterJoint:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7827234204751706657}
   serializedVersion: 3
-  m_ConnectedBody: {fileID: 3348008760745863036}
+  m_ConnectedBody: {fileID: 8243871367591224713}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 0, z: -1}
+  m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  m_SwingAxis: {x: 0, y: -1, z: 0}
+  m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
@@ -2659,9 +2684,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3133740638146130844}
-  - component: {fileID: 2434606485088954319}
-  - component: {fileID: 3922214148996918974}
-  - component: {fileID: 3564164344610440680}
+  - component: {fileID: 2413619367732380323}
+  - component: {fileID: 4724117483837311699}
+  - component: {fileID: 2543791246653908601}
   m_Layer: 6
   m_Name: Spine_01
   m_TagString: Untagged
@@ -2685,7 +2710,7 @@ Transform:
   - {fileID: 3275458501564327268}
   m_Father: {fileID: 1353233677619517084}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2434606485088954319
+--- !u!65 &2413619367732380323
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2704,9 +2729,9 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.40920782, y: 0.2783777, z: 0.38197708}
-  m_Center: {x: -0.20460385, y: 0.02545105, z: 0}
---- !u!54 &3922214148996918974
+  m_Size: {x: 0.40920776, y: 0.2783776, z: 0.38197708}
+  m_Center: {x: -0.20460388, y: 0.02545105, z: 0}
+--- !u!54 &4724117483837311699
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2714,7 +2739,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8183139152170571723}
   serializedVersion: 4
-  m_Mass: 7.8125
+  m_Mass: 3.125
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2733,7 +2758,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!144 &3564164344610440680
+--- !u!144 &2543791246653908601
 CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2741,13 +2766,13 @@ CharacterJoint:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8183139152170571723}
   serializedVersion: 3
-  m_ConnectedBody: {fileID: 8833586194975466927}
+  m_ConnectedBody: {fileID: 8325962760659000179}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 0, z: 1}
+  m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  m_SwingAxis: {x: 0, y: -1, z: 0}
+  m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
@@ -2884,8 +2909,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1353233677619517084}
-  - component: {fileID: 5842741960355974884}
-  - component: {fileID: 8833586194975466927}
+  - component: {fileID: 2504905663286981368}
+  - component: {fileID: 8325962760659000179}
   m_Layer: 6
   m_Name: Hips
   m_TagString: Untagged
@@ -2911,7 +2936,7 @@ Transform:
   - {fileID: 1987191621275693176}
   m_Father: {fileID: 1188443220756320392}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5842741960355974884
+--- !u!65 &2504905663286981368
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2930,9 +2955,9 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.1450907, y: 0.27836943, z: 0.38197708}
-  m_Center: {x: -0.031387396, y: 0.0010068119, z: 0}
---- !u!54 &8833586194975466927
+  m_Size: {x: 0.14509052, y: 0.2783693, z: 0.38197708}
+  m_Center: {x: -0.031387545, y: 0.0010068417, z: 0}
+--- !u!54 &8325962760659000179
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2940,7 +2965,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8665108626988262087}
   serializedVersion: 4
-  m_Mass: 7.8125
+  m_Mass: 3.125
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

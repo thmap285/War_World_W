@@ -1,13 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using Unity.Cinemachine;
-using Unity.VisualScripting;
 
 public class Gun : MonoBehaviour
 {
     [Header("Gun Settings")]
     [SerializeField] private string gunName;
-    [SerializeField] private float damage;
     [SerializeField] private float fireRate;
     private float _nextFireTime;
 
@@ -17,7 +15,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private int sizeOfMagazine = 30;
     [SerializeField] private float reloadTime = 2f;
 
-    [Header("Bullet Spread Settings")]
+    [Header("Spread Settings")]
     [SerializeField] private bool addSpread = true;
     [SerializeField] private float spreadAngle = 5f;
 
@@ -26,9 +24,10 @@ public class Gun : MonoBehaviour
     [SerializeField] private Vector2[] recoilPattern;
     [SerializeField] private float recoilDuration = 0.1f;
 
-    [Header("Bullet Projectile Settings")]
+    [Header("Bullet Settings")]
     [SerializeField] private GameObject pfBullet;
     [SerializeField] private Transform bulletSpawnPoint;
+    [SerializeField] private int bulletsPerShot = 1;
     private int _currentAmmoInMagazine;
     private int _totalAmmo;
     private bool _isReloading = false;
@@ -53,15 +52,19 @@ public class Gun : MonoBehaviour
         _totalAmmo = maxMagazines * sizeOfMagazine;
     }
 
-    public void Shoot(Vector3 aimPos)
+    public void Fire(Vector3 aimPos)
     {
-        if (!CanShoot) return;
+        if (!CanFire) return;
 
         _nextFireTime = Time.time + fireRate;
-        _currentAmmoInMagazine--;
+        int bulletsToFire = Mathf.Min(bulletsPerShot, _currentAmmoInMagazine);
+        _currentAmmoInMagazine -= bulletsToFire;
 
-        Vector3 direction = GetBulletDirection(aimPos);
-        Instantiate(pfBullet, bulletSpawnPoint.position, Quaternion.LookRotation(direction));
+        for (int i = 0; i < bulletsToFire; i++)
+        {
+            Vector3 direction = GetBulletDirection(aimPos);
+            Instantiate(pfBullet, bulletSpawnPoint.position, Quaternion.LookRotation(direction));
+        }
 
         ApplyEffects();
         ApplyRecoil();
@@ -78,6 +81,14 @@ public class Gun : MonoBehaviour
             direction = bulletSpawnPoint.forward;
 
         return GetSpreadRotation() * direction;
+    }
+
+    private Quaternion GetSpreadRotation()
+    {
+        if (!addSpread || spreadAngle <= 0f) return Quaternion.identity;
+
+        Vector3 randomPoint = Random.insideUnitSphere * Mathf.Tan(spreadAngle * Mathf.Deg2Rad);
+        return Quaternion.FromToRotation(Vector3.forward, Vector3.forward + randomPoint);
     }
 
     private void ApplyEffects()
@@ -140,14 +151,6 @@ public class Gun : MonoBehaviour
         }
     }
 
-    private Quaternion GetSpreadRotation()
-    {
-        if (!addSpread || spreadAngle <= 0f) return Quaternion.identity;
-
-        Vector3 randomPoint = Random.insideUnitSphere * Mathf.Tan(spreadAngle * Mathf.Deg2Rad);
-        return Quaternion.FromToRotation(Vector3.forward, Vector3.forward + randomPoint);
-    }
-
     public void AddAmmo(int amount)
     {
         if (amount > 0)
@@ -166,8 +169,8 @@ public class Gun : MonoBehaviour
             rigAnimator.Play(animationName, 1, 0.0f);
     }
 
-    public bool CanShoot => Time.time >= _nextFireTime && !_isReloading && _currentAmmoInMagazine > 0;
-    public GameObject MagazineGO => goMagazine;
+    public bool CanFire => Time.time >= _nextFireTime && !_isReloading && _currentAmmoInMagazine > 0;
+    public GameObject Magazine => goMagazine;
     public bool IsReloading => _isReloading;
     public string Name => gunName;
     public int Ammo => _currentAmmoInMagazine;

@@ -6,12 +6,12 @@ public class ZombieHealth : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private int points = 100;
 
-    private ZombieAI _zombieAI;
+    private ZombieRagdoll _zombieRagdoll;
     private float _currentHealth;
 
     private void Start()
     {
-        _zombieAI = GetComponent<ZombieAI>();
+        _zombieRagdoll = GetComponent<ZombieRagdoll>();
         _currentHealth = maxHealth;
     }
 
@@ -26,11 +26,13 @@ public class ZombieHealth : MonoBehaviour
 
     private void Dead()
     {
-        _zombieAI.EnableRagdoll();
-        
+        _zombieRagdoll.ActiveRagdoll(true);
+
         PointsManager.Instance.AddPoints(points);
-        FindFirstObjectByType<WaveManager>().ZombieDied();
+        WaveManager.Instance.ZombieDied();
 
         Destroy(gameObject, 6f);
     }
+
+    public float CurrentHealth => _currentHealth;
 }

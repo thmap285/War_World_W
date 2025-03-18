@@ -11,18 +11,25 @@ public class PointsManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
     {
-        pointText.text = point.ToString();
+        pointText.text = point.ToString() + "p";
     }
 
     public void AddPoints(int amount)
     {
         point += amount;
-        pointText.text = point.ToString();
+        pointText.text = point.ToString() + "p";
         
         GameObject textObj = Instantiate(fadeGreen, tfFadePoint.position, Quaternion.identity);
         textObj.transform.SetParent (GameObject.FindGameObjectWithTag("Canvas").transform, false);
@@ -33,7 +40,7 @@ public class PointsManager : MonoBehaviour
     public void MinusPoints(int amount)
     {
         point -= amount;
-        pointText.text = point.ToString();
+        pointText.text = point.ToString() + "p";
         
         GameObject textObj = Instantiate(fadeRed, tfFadePoint.position, Quaternion.identity);
         textObj.transform.SetParent (GameObject.FindGameObjectWithTag("Canvas").transform, false);

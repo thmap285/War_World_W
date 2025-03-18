@@ -49,7 +49,7 @@ public class PlayerAim : MonoBehaviour
         if (_input.aim)
         {
             EnterAimMode(aimPos);
-            if (_input.shoot) _gun.Shoot(aimPos);
+            if (_input.shoot) _gun.Fire(aimPos);
         }
         else
         {

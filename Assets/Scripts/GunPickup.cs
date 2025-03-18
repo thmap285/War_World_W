@@ -7,8 +7,8 @@ public class GunPickup : MonoBehaviour
 {
     [SerializeField] private Gun pfGun;
     [SerializeField] private float rotationSpeed = 50f;
-    [SerializeField] private int requiredPointsToEquip = 1000;
-    [SerializeField] private int requiredPointsToReload = 300;
+    [SerializeField] private int pointsEquip = 1000;
+    [SerializeField] private int pointsReload = 300;
     [SerializeField] private TextMeshProUGUI pointsText;
 
     private Rigidbody _rb;
@@ -23,7 +23,7 @@ public class GunPickup : MonoBehaviour
             _rb.isKinematic = true;
         }
 
-        pointsText.text = requiredPointsToEquip.ToString() + " Points";
+        pointsText.text = pointsEquip.ToString() + " Points";
     }
 
     private void Update()
@@ -59,7 +59,7 @@ public class GunPickup : MonoBehaviour
 
     private void PickupGun()
     {
-        if (PointsManager.Instance.HasEnoughPoints(requiredPointsToEquip))
+        if (PointsManager.Instance.HasEnoughPoints(pointsEquip))
         {
             PlayerEquip equip = FindFirstObjectByType<PlayerEquip>();
             if (equip)
@@ -70,32 +70,34 @@ public class GunPickup : MonoBehaviour
                 {
                     if (existingGun.TotalAmmo >= existingGun.SizeOfMagazine * existingGun.MaxMagazines)
                     {
-                        Debug.Log("Đạn đã đầy, không thể mua thêm!");
+                        NotificationManager.Instance.ShowNotification("Bạn đã có vũ khí này!", 1);
                         return;
                     }
 
-                    if (PointsManager.Instance.HasEnoughPoints(requiredPointsToReload))
+                    if (PointsManager.Instance.HasEnoughPoints(pointsReload))
                     {
                         existingGun.AddAmmo(existingGun.SizeOfMagazine * 2); // Thêm 2 băng đạn
-                        PointsManager.Instance.MinusPoints(requiredPointsToReload);
+                        PointsManager.Instance.MinusPoints(pointsReload);
+                        NotificationManager.Instance.ShowNotification("Bạn đã nạp đạn thành công!", 0);
                     }
                     else
                     {
-                        Debug.Log("Không đủ điểm để nạp đạn!");
+                        NotificationManager.Instance.ShowNotification("Không đủ điểm để nạp đạn!", 1);
                     }
                 }
                 else
                 {
                     Gun gun = Instantiate(pfGun);
                     equip.EquipGun(gun);
-                    PointsManager.Instance.MinusPoints(requiredPointsToEquip);
-                    pointsText.text = requiredPointsToReload.ToString() + " Points";
+                    PointsManager.Instance.MinusPoints(pointsEquip);
+                    NotificationManager.Instance.ShowNotification("Bạn đã mua súng " + gun.Name + " thành công!", 0);
+                    pointsText.text = pointsReload.ToString() + " Points";
                 }
             }
         }
         else
         {
-            Debug.Log("Không đủ điểm để mua súng!");
+            NotificationManager.Instance.ShowNotification("Không đủ điểm để mua súng!", 1);
         }
     }
 }

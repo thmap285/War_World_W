@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour
 {
+    public static WaveManager Instance;
+
     public enum SpawnState { SPAWNING, WAITING, COUNTING };
 
     [System.Serializable]
@@ -35,6 +37,18 @@ public class WaveManager : MonoBehaviour
     public Text waveText;
     public Text enemyCountText;
     private int _enemyAliveCount = 0;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -128,7 +142,7 @@ public class WaveManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        waveText.text = "Wave: " + (_nextWave + 1);
+        waveText.text = "Wave " + (_nextWave + 1);
         enemyCountText.text = _enemyAliveCount.ToString();
     }
 }

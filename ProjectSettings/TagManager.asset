@@ -10,6 +10,8 @@ TagManager:
   - Wall
   - Zombie
   - Canvas
+  - Ground
+  - Turret
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Zombie
   - ZombieRagdoll
   - Camera
-  - NoLayer
+  - 
   - 
   - 
   - 

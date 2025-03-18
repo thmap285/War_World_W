@@ -29,6 +29,7 @@ namespace SingularityGroup.HotReload.Demo {
         // Update is called once per frame
         void Update() {
             if (Demo.I.IsServerRunning()) {
+                Debug.Log("Hot Reload is running");
                 informationText.text = "Hot Reload is running";
             } else {
                 informationText.text = "Hot Reload is not running";
