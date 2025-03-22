@@ -8,17 +8,20 @@ TagManager:
   - Bullet
   - FxTemporaire
   - Wall
-  - Enemy
+  - Zombie
+  - Canvas
+  - Ground
+  - Turret
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Zombie
+  - ZombieRagdoll
+  - Camera
   - 
   - 
   - 

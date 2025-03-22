@@ -20,6 +20,7 @@ namespace StarterAssets
 
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
+        public bool canSprint = true;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -217,7 +218,8 @@ namespace StarterAssets
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-
+            if(!canSprint) targetSpeed = MoveSpeed;
+        
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -281,6 +283,8 @@ namespace StarterAssets
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+                _animator.SetFloat("InputX", _input.move.x, 0.1f, Time.deltaTime);
+                _animator.SetFloat("InputY", _input.move.y, 0.1f, Time.deltaTime);
             }
         }
 
@@ -374,7 +378,7 @@ namespace StarterAssets
                 GroundedRadius);
         }
 
-        private void OnFootstep(AnimationEvent animationEvent)
+        private void OnFootstep(UnityEngine.AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
@@ -386,7 +390,7 @@ namespace StarterAssets
             }
         }
 
-        private void OnLand(AnimationEvent animationEvent)
+        private void OnLand(UnityEngine.AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
@@ -402,6 +406,11 @@ namespace StarterAssets
         public void SetRotateOnMove(bool newRotateOnMove)
         {
             _rotateOnMove = newRotateOnMove;
+        }
+
+        public void SetSprint(bool newSprint)
+        {
+            canSprint = newSprint;
         }
     }
 }

@@ -1,49 +1,72 @@
+using System;
 using UnityEngine;
 
 public class BulletProjectile : MonoBehaviour
 {
     [SerializeField] private float speed = 100f;
-    [ SerializeField] private float damage = 10f;
+    [ SerializeField] private float baseDamage = 10f;
     [SerializeField] private float lifeTime = 5f;
+    [SerializeField] private float maxDistance = 10f;
     [SerializeField] private GameObject hitEnemyEffect;
     [SerializeField] private GameObject hitWallEffect;
 
-    private Rigidbody rb;
+    private Rigidbody _rb;
+    private Vector3 _spawnPosition;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     [System.Obsolete]
     private void Start()
     {
-        rb.velocity = transform.forward * speed;
+        _spawnPosition = transform.position;
+        _rb.velocity = transform.forward * speed;
         transform.rotation = Quaternion.LookRotation(transform.forward) * Quaternion.Euler(-90f,0,0);
 
         Destroy(gameObject, lifeTime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        // if(other.gameObject.CompareTag("Bullet") || other.gameObject.CompareTag("Player")) return;
+        if(other.gameObject.CompareTag("Bullet") || other.gameObject.CompareTag("Player")) return;
 
-        if(other.gameObject.CompareTag("Enemy"))
+        float distanceTraveled = Vector3.Distance(_spawnPosition, transform.position);
+        float damage = CalculateDamage(distanceTraveled);
+        Debug.Log(damage);
+
+        var zombieHealth = other.gameObject.GetComponent<ZombieHealth>();
+        if(other.gameObject.CompareTag("Zombie"))
         {
-            var hitEffect = Instantiate(hitEnemyEffect, transform.position, 
-                            Camera.main.transform.rotation);
-            var hitEffectLifeTime = hitEffect.GetComponent<ParticleSystem>().main.duration;
+            zombieHealth.TakeDamage(damage);
             
+            GameObject hitEffect = Instantiate(hitEnemyEffect, transform.position, 
+                            Camera.main.transform.rotation);
+
+            float hitEffectLifeTime = hitEffect.GetComponent<ParticleSystem>().main.duration;
             Destroy(hitEffect, hitEffectLifeTime);
         }
         else if(other.gameObject.CompareTag("Wall"))
         {
-            var hitEffect = Instantiate(hitWallEffect, transform.position, Camera.main.transform.rotation);
-            var hitEffectLifeTime = hitEffect.GetComponent<ParticleSystem>().main.duration;
+            Transform wall = other.gameObject.transform;
+            Vector3 direction = (wall.transform.position - transform.position).normalized;
 
+            GameObject hitEffect = Instantiate(hitWallEffect, transform.position, 
+                    Quaternion.LookRotation(direction, transform.up));
+            hitEffect.transform.SetParent(wall);
+
+            float hitEffectLifeTime = hitEffect.GetComponent<ParticleSystem>().main.duration;
             Destroy(hitEffect, hitEffectLifeTime);
         }
 
         Destroy(gameObject);
+    }
+
+    private float CalculateDamage(float distance)
+    {
+        float minDamage = baseDamage * 0.3f;
+        if (distance >= maxDistance) return minDamage;
+        return Mathf.Lerp(baseDamage, minDamage, distance / maxDistance);
     }
 }
