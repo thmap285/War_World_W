@@ -1,11 +1,14 @@
 using UnityEngine;
 using System.Collections;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 
 public class Gun : MonoBehaviour
 {
     [Header("Gun Settings")]
     [SerializeField] private string gunName;
+    [SerializeField] private bool isRocketLauncher = false;
+    [SerializeField] private int bulletsPerShot = 1;
     [SerializeField] private float fireRate;
     private float _nextFireTime;
 
@@ -27,7 +30,6 @@ public class Gun : MonoBehaviour
     [Header("Bullet Settings")]
     [SerializeField] private GameObject pfBullet;
     [SerializeField] private Transform bulletSpawnPoint;
-    [SerializeField] private int bulletsPerShot = 1;
     private int _currentAmmoInMagazine;
     private int _totalAmmo;
     private bool _isReloading = false;
@@ -57,6 +59,33 @@ public class Gun : MonoBehaviour
         if (!CanFire) return;
 
         _nextFireTime = Time.time + fireRate;
+
+        if (isRocketLauncher)
+        {
+            FireRocket(aimPos);
+        }
+        else
+        {
+            FireBullets(aimPos);
+        }
+
+        ApplyEffects();
+        ApplyRecoil();
+        ApplySound(shotSound);
+
+        AutoReload();
+    }
+
+    private void FireRocket(Vector3 aimPos)
+    {
+        _currentAmmoInMagazine--;
+
+        Vector3 direction = (aimPos - bulletSpawnPoint.position).normalized;
+        Instantiate(pfBullet, bulletSpawnPoint.position, Quaternion.LookRotation(direction, transform.forward));
+    }
+
+    private void FireBullets(Vector3 aimPos)
+    {
         int bulletsToFire = Mathf.Min(bulletsPerShot, _currentAmmoInMagazine);
         _currentAmmoInMagazine -= bulletsToFire;
 
@@ -65,12 +94,6 @@ public class Gun : MonoBehaviour
             Vector3 direction = GetBulletDirection(aimPos);
             Instantiate(pfBullet, bulletSpawnPoint.position, Quaternion.LookRotation(direction));
         }
-
-        ApplyEffects();
-        ApplyRecoil();
-        ApplySound(shotSound);
-
-        AutoReload();
     }
 
     private Vector3 GetBulletDirection(Vector3 aimPos)
@@ -94,7 +117,16 @@ public class Gun : MonoBehaviour
     private void ApplyEffects()
     {
         if (pfMuzzleFlash && tfMuzzleFlash)
-            Instantiate(pfMuzzleFlash, tfMuzzleFlash.position, tfMuzzleFlash.rotation, tfMuzzleFlash);
+        {
+            if (isRocketLauncher)
+            {
+                Instantiate(pfMuzzleFlash, tfMuzzleFlash.position, tfMuzzleFlash.rotation);
+            }
+            else
+            {
+                Instantiate(pfMuzzleFlash, tfMuzzleFlash.position, tfMuzzleFlash.rotation, tfMuzzleFlash);
+            }
+        }
 
         impulseSource?.GenerateImpulse();
     }
@@ -118,6 +150,7 @@ public class Gun : MonoBehaviour
         if (_totalAmmo <= 0) yield break;
 
         _isReloading = true;
+
         rigAnimator.SetTrigger("Reload_Weapon");
         ApplySound(reloadSound);
 
@@ -171,6 +204,7 @@ public class Gun : MonoBehaviour
 
     public bool CanFire => Time.time >= _nextFireTime && !_isReloading && _currentAmmoInMagazine > 0;
     public GameObject Magazine => goMagazine;
+    public bool IsRocketLauncher => isRocketLauncher;
     public bool IsReloading => _isReloading;
     public string Name => gunName;
     public int Ammo => _currentAmmoInMagazine;

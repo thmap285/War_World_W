@@ -215,10 +215,10 @@ RectTransform:
   - {fileID: 224727222018395176}
   m_Father: {fileID: 224510136376718478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 733, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 215, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &114651427559283638
 MonoBehaviour:
@@ -1400,7 +1400,6 @@ GameObject:
   - component: {fileID: 222713562723080716}
   - component: {fileID: 114155213841486588}
   - component: {fileID: 225636864245866466}
-  - component: {fileID: 114702271910426258}
   m_Layer: 5
   m_Name: Window (Friends)
   m_TagString: Untagged
@@ -1509,18 +1508,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &114702271910426258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1065977562495686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2e1ce3fe4b4851478e36a2f9a4db54b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1083184801861048
 GameObject:
   m_ObjectHideFlags: 0
@@ -7538,10 +7525,10 @@ RectTransform:
   - {fileID: 224654854409310336}
   m_Father: {fileID: 224925703321925860}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 733, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 215, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &114757679229595692
 MonoBehaviour:
@@ -16635,10 +16622,10 @@ RectTransform:
   - {fileID: 224718214208795736}
   m_Father: {fileID: 224203931391078572}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 733, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 215, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &114860018414457902
 MonoBehaviour:
@@ -17878,7 +17865,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224106214519437186}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.6814517
+  m_Size: 0.62903225
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

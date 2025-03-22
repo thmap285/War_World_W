@@ -57,6 +57,12 @@ public class PlayerReload : MonoBehaviour
     {
         _magazineHand = Instantiate(_gun.Magazine, leftHand, true);
         _gun.Magazine.SetActive(false);
+        if(_gun.IsRocketLauncher)
+        {
+            _magazineHand.transform.localPosition = new Vector3(-0.08f, -0.04f, -0.4f);
+            _magazineHand.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            _magazineHand.transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     private void Drop_Magazine()

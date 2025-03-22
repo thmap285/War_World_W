@@ -353,7 +353,6 @@ GameObject:
   - component: {fileID: 114696642037721188}
   - component: {fileID: 114268914130736884}
   - component: {fileID: 114680223363873090}
-  - component: {fileID: 114853838565175452}
   m_Layer: 5
   m_Name: Button (Medium Light)
   m_TagString: Untagged
@@ -381,7 +380,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 310, y: 126}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114518675076050146
 MonoBehaviour:
@@ -654,15 +653,3 @@ MonoBehaviour:
     m_Bottom: 0
   m_ScaleX: 1
   m_ScaleY: 1
---- !u!114 &114853838565175452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1883932876748988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2e1ce3fe4b4851478e36a2f9a4db54b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -116,7 +116,7 @@ MonoBehaviour:
   goMagazine: {fileID: 0}
   maxMagazines: 12
   sizeOfMagazine: 18
-  reloadTime: 1.5
+  reloadTime: 1
   addSpread: 1
   spreadAngle: 6
   addRecoil: 1
@@ -127,7 +127,7 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 523005031103251454}
   bulletsPerShot: 6
   shotSound: {fileID: 8300000, guid: fa8c93fa8f02e1243974d02d3812e732, type: 3}
-  reloadSound: {fileID: 8300000, guid: 5e7f633dda3117f4f90253f51ee065f0, type: 3}
+  reloadSound: {fileID: 8300000, guid: 0c1dc71a83b813b468b91f45a8ecdbbd, type: 3}
   volume: 0.655
   pfMuzzleFlash: {fileID: 1336949550903370, guid: 4543ab5e3d405ec40a8d4e9aa5165030, type: 3}
   tfMuzzleFlash: {fileID: 2427091276297358416}

@@ -34,13 +34,6 @@ public class NotificationManager : MonoBehaviour
 
     private IEnumerator ShowNotificationCoroutine(string message, int prefabIndex)
     {
-        // Kiểm tra nếu prefabIndex hợp lệ
-        if (prefabIndex < 0 || prefabIndex >= notificationPrefabs.Length)
-        {
-            Debug.LogWarning($"⚠️ Prefab index {prefabIndex} không hợp lệ! Dùng mặc định (0).");
-            prefabIndex = 0; // Nếu lỗi, dùng prefab đầu tiên
-        }
-
         GameObject prefabToUse = notificationPrefabs[prefabIndex];
 
         // Tạo thông báo mới
@@ -59,7 +52,6 @@ public class NotificationManager : MonoBehaviour
             cg.DOFade(1, fadeDuration).SetUpdate(true);
         }
 
-        // Xóa thông báo cũ nếu quá giới hạn
         if (notifications.Count > maxNotification)
         {
             GameObject oldest = notifications[0];

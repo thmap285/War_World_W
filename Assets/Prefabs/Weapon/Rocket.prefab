@@ -150,11 +150,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe049fa008eca454d98411dd39b34979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 40
   damage: 100
-  explosionRadius: 3
+  explosionRadius: 5
   explosionForce: 20
-  explosionEffect: {fileID: 100008, guid: 7075bd5fe1480184695a32611c15da57, type: 3}
+  explosionLayers:
+    serializedVersion: 2
+    m_Bits: 193
+  explosionEffect: {fileID: 100008, guid: 1dbc518224e49f34095aab42fe05751a, type: 3}
   flySound: {fileID: 8300000, guid: 7d135732821a6224381b6062a2b1eaf7, type: 3}
   flyVolume: 0.083
   explosionSound: {fileID: 8300000, guid: 1257ddd13c209ea46ba635071b7e230e, type: 3}

@@ -6,6 +6,7 @@ public class BulletRocket : MonoBehaviour
     [SerializeField] private float damage = 100f;
     [SerializeField] private float explosionRadius = 5f;
     [SerializeField] private float explosionForce = 50f;
+    [SerializeField] private LayerMask explosionLayers; 
     [SerializeField] private GameObject explosionEffect;
     [SerializeField] private AudioClip flySound;
     [Range(0f, 1f)] public float flyVolume = 0.5f;
@@ -37,12 +38,17 @@ public class BulletRocket : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider Collider)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Bullet") || other.gameObject.CompareTag("Player")) return;
+
+        if (((1 << other.gameObject.layer) & explosionLayers) != 0) 
     {
         if (!_hasExploded)
         {
             Explode();
         }
+    }
     }
 
     private void Explode()
@@ -53,7 +59,7 @@ public class BulletRocket : MonoBehaviour
         AudioSource.PlayClipAtPoint(explosionSound, transform.position, explosionVolume);
         Instantiate(explosionEffect, transform.position, Quaternion.identity);
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius, explosionLayers);
         foreach (Collider hit in colliders)
         {
             ZombieHealth zombieHealth = hit.GetComponent<ZombieHealth>();
@@ -71,8 +77,7 @@ public class BulletRocket : MonoBehaviour
                     }
                 }
             }
-
-            Destroy(gameObject);
         }
+        Destroy(gameObject);
     }
 }

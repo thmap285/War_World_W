@@ -6,7 +6,7 @@ public class ZombieRagdoll : MonoBehaviour
     private Collider _zombieCollider;
     private Collider[] _ragdollColliders;
     private Rigidbody[] _ragdollRigidbodies;
-    private NavMeshAgent _agent;
+    private ZombieAI _ai;
     private Animator _animator;
 
     private void Start()
@@ -14,7 +14,7 @@ public class ZombieRagdoll : MonoBehaviour
         _zombieCollider = GetComponent<Collider>();
         _ragdollColliders = GetComponentsInChildren<Collider>();
         _ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
-        _agent = GetComponent<NavMeshAgent>();
+        _ai = GetComponent<ZombieAI>();
         _animator = GetComponent<Animator>();
 
         ActiveRagdoll(false);
@@ -31,22 +31,22 @@ public class ZombieRagdoll : MonoBehaviour
         foreach (var collider in _ragdollColliders)
         {
             collider.enabled = isActive;
-            if (collider != _zombieCollider)
-            {
-                collider.gameObject.layer = LayerMask.NameToLayer("ZombieRagdoll");
-            }
+            // if (collider != _zombieCollider)
+            // {
+            //     collider.gameObject.layer = LayerMask.NameToLayer("ZombieRagdoll");
+            // }
         }
 
         _zombieCollider.enabled = !isActive;
-        _agent.enabled = !isActive;
+        _ai.enabled = !isActive;
         _animator.enabled = !isActive;
 
         if (isActive)
-{
-    if (GetComponent<Rigidbody>())
-    {
-        Destroy(GetComponent<Rigidbody>()); // Xóa Rigidbody chính để tránh bị đẩy đi mạnh
-    }
-}
+        {
+            if (GetComponent<Rigidbody>())
+            {
+                Destroy(GetComponent<Rigidbody>());
+            }
+        }
     }
 }

@@ -153,7 +153,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pfGun: {fileID: 1667109752246210190, guid: 32fc254acf5545f4d88bc2e6d59957f8, type: 3}
   rotationSpeed: 100
-  requiredPoints: 1000
+  pointsEquip: 1000
+  pointsReload: 300
   pointsText: {fileID: 4013211412894105181}
 --- !u!1 &7510556551299083426
 GameObject:

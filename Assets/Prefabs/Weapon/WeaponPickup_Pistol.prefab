@@ -153,7 +153,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pfGun: {fileID: 1667109752246210190, guid: f3ae81d5b1c453d45a1e05a568812d12, type: 3}
   rotationSpeed: 100
-  requiredPoints: 100
+  pointsEquip: 1000
+  pointsReload: 300
   pointsText: {fileID: 6724020338653454228}
 --- !u!1 &7915979262774794176
 GameObject:
@@ -415,7 +416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4300965689403036, guid: a1608518da2a041418e8a5351d223d94, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.135
       objectReference: {fileID: 0}
     - target: {fileID: 4300965689403036, guid: a1608518da2a041418e8a5351d223d94, type: 3}
       propertyPath: m_LocalRotation.w

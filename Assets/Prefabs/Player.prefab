@@ -1431,7 +1431,7 @@ MonoBehaviour:
   VerticalAxis:
     Value: 15
     Center: 15
-    Range: {x: -40, y: 65}
+    Range: {x: -40, y: 40}
     Wrap: 0
     Recentering:
       Enabled: 0
@@ -1563,7 +1563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Offset: {x: 0.6, y: 0, z: 0.7}
+  Offset: {x: 0.8, y: 0, z: 0.7}
   ApplyAfter: 1
   PreserveComposition: 0
 --- !u!114 &4898129639726737224
@@ -3149,14 +3149,14 @@ MonoBehaviour:
   - {fileID: 4885670612341376439}
   aimDuration: 10
   rigAnimator: {fileID: 2249075522457544728}
-  animator: {fileID: 0}
+  animator: {fileID: 7103975804514940858}
   aimCamera: {fileID: 6446222941238563327}
   followCamera: {fileID: 6446222941238563327}
   aimSensitivity: 0.5
   normalSensitivity: 1
   aimColliderLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 65
   aimTransform: {fileID: 0}
 --- !u!114 &6194269212060405873
 MonoBehaviour:

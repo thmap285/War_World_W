@@ -22,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
     private void Dead()
     {
         Debug.Log("Player Dead");
+        PauseMenu.Instance.gameObject.SetActive(true);
     }
 
     public float CurrentHealth => _currentHealth;

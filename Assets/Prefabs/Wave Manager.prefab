@@ -47,11 +47,11 @@ MonoBehaviour:
   waves:
   - enemyGroups:
     - enemyPrefab: {fileID: 2612664525235742997, guid: ac934527f2bb4e340b8ff4aa1d0a0fe6, type: 3}
-      count: 10
-    rate: 0.1
+      count: 0
+    rate: 100
     hasBoss: 0
     bossPrefab: {fileID: 0}
-  timeBetweenWaves: 5
+  timeBetweenWaves: 1
   spawnPoints:
   - {fileID: 0}
   - {fileID: 0}

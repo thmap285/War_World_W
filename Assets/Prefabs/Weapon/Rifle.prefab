@@ -95,7 +95,7 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 523005031103251454}
   bulletsPerShot: 1
   shotSound: {fileID: 8300000, guid: 6edaaf80bb8f8de4e870f6551d5ca2ae, type: 3}
-  reloadSound: {fileID: 8300000, guid: 5e7f633dda3117f4f90253f51ee065f0, type: 3}
+  reloadSound: {fileID: 8300000, guid: 0c1dc71a83b813b468b91f45a8ecdbbd, type: 3}
   volume: 0.536
   pfMuzzleFlash: {fileID: 1336949550903370, guid: 4543ab5e3d405ec40a8d4e9aa5165030, type: 3}
   tfMuzzleFlash: {fileID: 2427091276297358416}
